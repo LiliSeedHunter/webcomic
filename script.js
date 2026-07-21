@@ -12,6 +12,9 @@ fetch("story.json")
     const total = story.length;
 
 
+
+    // CREA LE SCENE
+
     story.forEach((scene, index) => {
 
 
@@ -148,6 +151,110 @@ fetch("story.json")
             imageObserver.observe(img);
 
         });
+
+
+
+
+
+    // ==========================
+    // FLOATING NAVIGATION BUTTONS
+    // ==========================
+
+
+    const scenes =
+        document.querySelectorAll(".scene");
+
+
+    const topButton =
+        document.getElementById("topButton");
+
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+
+
+    // TORNA ALL'INIZIO
+
+    if(topButton){
+
+        topButton.onclick = () => {
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+
+        };
+
+    }
+
+
+
+
+    // PASSA ALLA SCENA SUCCESSIVA
+
+    if(nextButton){
+
+
+        nextButton.onclick = () => {
+
+
+            let current = 0;
+
+
+
+            scenes.forEach((scene, index) => {
+
+
+                const rect =
+                    scene.getBoundingClientRect();
+
+
+
+                if(
+                    rect.top <
+                    window.innerHeight / 2
+                ){
+
+                    current = index;
+
+                }
+
+
+            });
+
+
+
+            const next =
+                scenes[current + 1];
+
+
+
+            if(next){
+
+
+                next.scrollIntoView({
+
+                    behavior: "smooth",
+
+                    block: "start"
+
+                });
+
+
+            }
+
+
+        };
+
+
+    }
 
 
 
