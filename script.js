@@ -12,9 +12,6 @@ fetch("story.json")
     const total = story.length;
 
 
-
-    // CREA LE SCENE
-
     story.forEach((scene, index) => {
 
 
@@ -33,11 +30,9 @@ fetch("story.json")
                 ${String(total).padStart(3, "0")}
             </div>
 
-
             <p class="caption">
                 ${scene.text}
             </p>
-
 
             <img
                 data-src="images/${scene.image}"
@@ -54,7 +49,7 @@ fetch("story.json")
 
 
 
-    // FADE IN DELLE SCENE
+    // FADE IN
 
     const sceneObserver =
         new IntersectionObserver(
@@ -63,25 +58,20 @@ fetch("story.json")
 
                 entries.forEach(entry => {
 
-
                     if(entry.isIntersecting){
-
 
                         entry.target.classList.add(
                             "visible"
                         );
 
-
                     }
 
-
                 });
-
 
             },
 
             {
-                threshold: 0.1
+                threshold:0.1
             }
 
         );
@@ -98,7 +88,9 @@ fetch("story.json")
 
 
 
-    // LAZY LOADING IMMAGINI ANTICIPATO
+
+
+    // LAZY LOAD
 
     const imageObserver =
         new IntersectionObserver(
@@ -130,14 +122,13 @@ fetch("story.json")
 
                     }
 
-
                 });
 
 
             },
 
             {
-                rootMargin: "800px 0px"
+                rootMargin:"800px 0px"
             }
 
         );
@@ -156,9 +147,11 @@ fetch("story.json")
 
 
 
-    // ==========================
-    // FLOATING NAVIGATION BUTTONS
-    // ==========================
+
+
+    // ======================
+    // FLOATING NAVIGATION
+    // ======================
 
 
     const scenes =
@@ -173,88 +166,130 @@ fetch("story.json")
         document.getElementById("nextButton");
 
 
-
-    // TORNA ALL'INIZIO
-
-    if(topButton){
-
-        topButton.onclick = () => {
-
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-
-            });
-
-
-        };
-
-    }
+    const jumpButton =
+        document.getElementById("jumpButton");
 
 
 
-
-    // PASSA ALLA SCENA SUCCESSIVA
-
-    if(nextButton){
-
-
-        nextButton.onclick = () => {
-
-
-            let current = 0;
+    let jumpAmount = 1;
 
 
 
-            scenes.forEach((scene, index) => {
-
-
-                const rect =
-                    scene.getBoundingClientRect();
-
-
-
-                if(
-                    rect.top <
-                    window.innerHeight / 2
-                ){
-
-                    current = index;
-
-                }
-
-
-            });
+    const jumpValues = [
+        1,
+        10,
+        50
+    ];
 
 
 
-            const next =
-                scenes[current + 1];
+    let jumpIndex = 0;
 
 
 
-            if(next){
+    // CAMBIO MODALITA'
+
+    jumpButton.onclick = () => {
 
 
-                next.scrollIntoView({
+        jumpIndex++;
 
-                    behavior: "smooth",
 
-                    block: "start"
+        if(jumpIndex >= jumpValues.length){
 
-                });
+            jumpIndex = 0;
 
+        }
+
+
+        jumpAmount =
+            jumpValues[jumpIndex];
+
+
+        jumpButton.textContent =
+            jumpAmount + "X";
+
+
+    };
+
+
+
+
+    // TORNA IN ALTO
+
+    topButton.onclick = () => {
+
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+
+    };
+
+
+
+
+
+    // SALTO AVANTI
+
+    nextButton.onclick = () => {
+
+
+        let current = 0;
+
+
+
+        scenes.forEach((scene,index)=>{
+
+
+            const rect =
+                scene.getBoundingClientRect();
+
+
+            if(
+                rect.top <
+                window.innerHeight / 2
+            ){
+
+                current=index;
 
             }
 
 
-        };
+        });
 
 
-    }
+
+        let targetIndex =
+            current + jumpAmount;
+
+
+
+        if(targetIndex >= scenes.length){
+
+            targetIndex =
+                scenes.length - 1;
+
+        }
+
+
+
+        scenes[targetIndex]
+            .scrollIntoView({
+
+                behavior:"smooth",
+
+                block:"start"
+
+            });
+
+
+    });
 
 
 
