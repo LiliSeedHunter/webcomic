@@ -336,6 +336,80 @@ fetch("story.json")
 
     }
 
+// ======================
+// AGE VERIFICATION
+// ======================
 
+
+const ageGate =
+    document.getElementById("age-gate");
+
+
+const enterButton =
+    document.getElementById("enterButton");
+
+
+const leaveButton =
+    document.getElementById("leaveButton");
+
+
+
+if(ageGate){
+
+
+    if(
+        localStorage.getItem("ageAccepted")
+        ===
+        "true"
+    ){
+
+        ageGate.style.display =
+            "none";
+
+    }
+
+
+
+    if(enterButton){
+
+
+        enterButton.onclick = () => {
+
+
+            localStorage.setItem(
+                "ageAccepted",
+                "true"
+            );
+
+
+            ageGate.style.display =
+                "none";
+
+
+        };
+
+
+    }
+
+
+
+
+    if(leaveButton){
+
+
+        leaveButton.onclick = () => {
+
+
+            window.location.href =
+                "https://www.google.com";
+
+
+        };
+
+
+    }
+
+
+}
 
 });
