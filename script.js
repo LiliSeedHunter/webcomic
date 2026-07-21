@@ -1,25 +1,88 @@
 fetch("story.json")
-    .then(response => response.json())
-    .then(story => {
 
-        const container = document.getElementById("story");
+.then(response => response.json())
 
-        story.forEach(scene => {
+.then(story => {
 
-            const block = document.createElement("section");
 
-            block.className = "scene";
+    const container =
+        document.getElementById("story");
 
-            block.innerHTML = `
-                <p class="caption">
-                    ${scene.text}
-                </p>
 
-                <img src="images/${scene.image}">
-            `;
+    const total = story.length;
 
-            container.appendChild(block);
+
+    story.forEach((scene, index) => {
+
+
+        const block =
+            document.createElement("section");
+
+
+        block.className = "scene";
+
+
+        block.innerHTML = `
+
+            <div class="progress">
+                LOG ${String(index + 1).padStart(3, "0")}
+                /
+                ${String(total).padStart(3, "0")}
+            </div>
+
+
+            <p class="caption">
+                ${scene.text}
+            </p>
+
+
+            <img
+                src="images/${scene.image}"
+                loading="lazy"
+            >
+
+        `;
+
+
+        container.appendChild(block);
+
+
+    });
+
+
+
+    // FAST FADE IN
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if(entry.isIntersecting){
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.1
+            }
+        );
+
+
+    document
+        .querySelectorAll(".scene")
+        .forEach(scene => {
+
+            observer.observe(scene);
 
         });
 
-    });
+
+});
