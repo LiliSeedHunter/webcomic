@@ -342,3 +342,133 @@ h1 {
 
 
 }
+
+/* COVER */
+
+.cover {
+
+    max-width: 900px;
+
+    margin: 0 auto 80px;
+
+    padding: 20px 30px;
+
+    text-align:center;
+
+}
+
+
+
+.cover img {
+
+    width:100%;
+
+    max-width:700px;
+
+    display:block;
+
+    margin:0 auto 40px;
+
+    border-radius:4px;
+
+}
+
+
+
+.cover-text {
+
+    max-width:650px;
+
+    margin:0 auto;
+
+}
+
+
+
+.cover-text h2 {
+
+    font-size:32px;
+
+    font-weight:normal;
+
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.cover-text p {
+
+    font-size:20px;
+
+    line-height:1.7;
+
+    color:#cccccc;
+
+}
+
+
+
+.start-button {
+
+    margin-top:35px;
+
+    padding:15px 35px;
+
+    background:#222;
+
+    color:white;
+
+    border:
+
+        1px solid #555;
+
+    font-family:
+
+        "Courier New",
+        monospace;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+}
+
+
+
+.start-button:hover {
+
+    background:#444;
+
+}
+
+
+
+@media(max-width:700px){
+
+
+    .cover {
+
+        padding:20px 15px;
+
+    }
+
+
+    .cover-text h2 {
+
+        font-size:26px;
+
+    }
+
+
+    .cover-text p {
+
+        font-size:17px;
+
+    }
+
+}
