@@ -37,8 +37,8 @@ fetch("story.json")
 
 
             <img
-                src="images/${scene.image}"
-                loading="lazy"
+                data-src="images/${scene.image}"
+                alt=""
             >
 
         `;
@@ -86,3 +86,38 @@ fetch("story.json")
 
 
 });
+
+const imageObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    const img =
+                        entry.target;
+
+                    img.src =
+                        img.dataset.src;
+
+                    imageObserver.unobserve(img);
+
+                }
+
+            });
+
+        },
+        {
+            rootMargin: "800px 0px"
+        }
+    );
+
+
+document
+    .querySelectorAll("img[data-src]")
+    .forEach(img => {
+
+        imageObserver.observe(img);
+
+    });
