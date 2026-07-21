@@ -472,3 +472,229 @@ h1 {
     }
 
 }
+
+/* ======================
+   AGE GATE
+   ====================== */
+
+
+#age-gate {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+
+        rgba(0,0,0,0.5);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+
+    backdrop-filter: blur(4px);
+
+}
+
+
+
+
+.age-box {
+
+    max-width: 500px;
+
+    margin: 20px;
+
+    padding: 45px 40px;
+
+    text-align: center;
+
+
+    background:
+
+        rgba(10,10,10,0.92);
+
+
+    border:
+
+        1px solid #555;
+
+
+    box-shadow:
+
+        0 0 40px rgba(0,0,0,0.8);
+
+}
+
+
+
+
+
+.age-box h2 {
+
+    margin:0 0 25px;
+
+
+    font-family:
+
+        "Courier New",
+        monospace;
+
+
+    font-size:28px;
+
+
+    letter-spacing:3px;
+
+
+    font-weight:normal;
+
+}
+
+
+
+
+
+.age-box p {
+
+    color:#ccc;
+
+
+    font-size:18px;
+
+
+    line-height:1.6;
+
+
+    margin-bottom:30px;
+
+}
+
+
+
+
+
+.age-buttons {
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    gap:20px;
+
+}
+
+
+
+
+
+.age-buttons button {
+
+
+    padding:
+
+        12px 35px;
+
+
+    background:#222;
+
+
+    color:white;
+
+
+    border:
+
+        1px solid #666;
+
+
+    cursor:pointer;
+
+
+    font-family:
+
+        "Courier New",
+        monospace;
+
+
+    letter-spacing:2px;
+
+
+    transition:
+
+        background 0.2s ease,
+
+        transform 0.2s ease;
+
+}
+
+
+
+
+
+.age-buttons button:hover {
+
+
+    background:#444;
+
+
+    transform:scale(1.05);
+
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+    .age-box {
+
+
+        padding:
+
+            35px 20px;
+
+
+    }
+
+
+
+    .age-box h2 {
+
+
+        font-size:22px;
+
+
+    }
+
+
+
+    .age-box p {
+
+
+        font-size:16px;
+
+
+    }
+
+
+
+    .age-buttons {
+
+
+        flex-direction:column;
+
+
+    }
+
+
+
+}
