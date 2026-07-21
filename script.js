@@ -51,73 +51,104 @@ fetch("story.json")
 
 
 
-    // FAST FADE IN
+    // FADE IN DELLE SCENE
 
-    const observer =
+    const sceneObserver =
         new IntersectionObserver(
+
             entries => {
 
                 entries.forEach(entry => {
 
+
                     if(entry.isIntersecting){
+
 
                         entry.target.classList.add(
                             "visible"
                         );
 
+
                     }
+
 
                 });
 
+
             },
+
             {
                 threshold: 0.1
             }
+
         );
+
 
 
     document
         .querySelectorAll(".scene")
         .forEach(scene => {
 
-            observer.observe(scene);
+            sceneObserver.observe(scene);
 
         });
 
 
+
+    // LAZY LOADING IMMAGINI ANTICIPATO
+
+    const imageObserver =
+        new IntersectionObserver(
+
+            entries => {
+
+
+                entries.forEach(entry => {
+
+
+                    if(entry.isIntersecting){
+
+
+                        const img =
+                            entry.target;
+
+
+                        img.src =
+                            img.dataset.src;
+
+
+                        img.removeAttribute(
+                            "data-src"
+                        );
+
+
+                        imageObserver.unobserve(img);
+
+
+                    }
+
+
+                });
+
+
+            },
+
+            {
+                rootMargin: "800px 0px"
+            }
+
+        );
+
+
+
+    document
+        .querySelectorAll("img[data-src]")
+        .forEach(img => {
+
+            imageObserver.observe(img);
+
+        });
+
+
+
 });
-
-const imageObserver =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if(entry.isIntersecting){
-
-                    const img =
-                        entry.target;
-
-                    img.src =
-                        img.dataset.src;
-
-                    imageObserver.unobserve(img);
-
-                }
-
-            });
-
-        },
-        {
-            rootMargin: "800px 0px"
-        }
-    );
-
-
-document
-    .querySelectorAll("img[data-src]")
-    .forEach(img => {
-
-        imageObserver.observe(img);
-
-    });
