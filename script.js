@@ -12,6 +12,9 @@ fetch("story.json")
     const total = story.length;
 
 
+
+    // CREA LE SCENE
+
     story.forEach((scene, index) => {
 
 
@@ -30,9 +33,11 @@ fetch("story.json")
                 ${String(total).padStart(3, "0")}
             </div>
 
+
             <p class="caption">
                 ${scene.text}
             </p>
+
 
             <img
                 data-src="images/${scene.image}"
@@ -49,24 +54,35 @@ fetch("story.json")
 
 
 
-    // FADE IN
+
+
+    // ======================
+    // FADE IN SCENE
+    // ======================
+
 
     const sceneObserver =
         new IntersectionObserver(
 
             entries => {
 
+
                 entries.forEach(entry => {
 
+
                     if(entry.isIntersecting){
+
 
                         entry.target.classList.add(
                             "visible"
                         );
 
+
                     }
 
+
                 });
+
 
             },
 
@@ -90,7 +106,12 @@ fetch("story.json")
 
 
 
-    // LAZY LOAD
+
+
+    // ======================
+    // LAZY LOAD IMMAGINI
+    // ======================
+
 
     const imageObserver =
         new IntersectionObserver(
@@ -122,6 +143,7 @@ fetch("story.json")
 
                     }
 
+
                 });
 
 
@@ -142,6 +164,7 @@ fetch("story.json")
             imageObserver.observe(img);
 
         });
+
 
 
 
@@ -174,7 +197,6 @@ fetch("story.json")
     let jumpAmount = 1;
 
 
-
     const jumpValues = [
         1,
         10,
@@ -182,54 +204,70 @@ fetch("story.json")
     ];
 
 
-
     let jumpIndex = 0;
 
 
 
-    // CAMBIO MODALITA'
-
-    jumpButton.onclick = () => {
 
 
-        jumpIndex++;
+    // CAMBIO MOLTIPLICATORE
+
+    if(jumpButton){
 
 
-        if(jumpIndex >= jumpValues.length){
-
-            jumpIndex = 0;
-
-        }
+        jumpButton.onclick = () => {
 
 
-        jumpAmount =
-            jumpValues[jumpIndex];
+            jumpIndex++;
 
 
-        jumpButton.textContent =
-            jumpAmount + "X";
+            if(jumpIndex >= jumpValues.length){
+
+                jumpIndex = 0;
+
+            }
 
 
-    };
+            jumpAmount =
+                jumpValues[jumpIndex];
+
+
+            jumpButton.textContent =
+                jumpAmount + "X";
+
+
+        };
+
+
+    }
 
 
 
 
-    // TORNA IN ALTO
-
-    topButton.onclick = () => {
 
 
-        window.scrollTo({
+    // TORNA ALL'INIZIO
 
-            top:0,
-
-            behavior:"smooth"
-
-        });
+    if(topButton){
 
 
-    };
+        topButton.onclick = () => {
+
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"smooth"
+
+            });
+
+
+        };
+
+
+    }
+
 
 
 
@@ -237,59 +275,66 @@ fetch("story.json")
 
     // SALTO AVANTI
 
-    nextButton.onclick = () => {
+    if(nextButton){
 
 
-        let current = 0;
+        nextButton.onclick = () => {
 
 
-
-        scenes.forEach((scene,index)=>{
-
-
-            const rect =
-                scene.getBoundingClientRect();
-
-
-            if(
-                rect.top <
-                window.innerHeight / 2
-            ){
-
-                current=index;
-
-            }
-
-
-        });
+            let current = 0;
 
 
 
-        let targetIndex =
-            current + jumpAmount;
+            scenes.forEach((scene,index)=>{
+
+
+                const rect =
+                    scene.getBoundingClientRect();
 
 
 
-        if(targetIndex >= scenes.length){
+                if(
+                    rect.top <
+                    window.innerHeight / 2
+                ){
 
-            targetIndex =
-                scenes.length - 1;
+                    current = index;
 
-        }
+                }
 
-
-
-        scenes[targetIndex]
-            .scrollIntoView({
-
-                behavior:"smooth",
-
-                block:"start"
 
             });
 
 
-    });
+
+            let targetIndex =
+                current + jumpAmount;
+
+
+
+            if(targetIndex >= scenes.length){
+
+                targetIndex =
+                    scenes.length - 1;
+
+            }
+
+
+
+            scenes[targetIndex]
+                .scrollIntoView({
+
+                    behavior:"smooth",
+
+                    block:"start"
+
+                });
+
+
+        };
+
+
+    }
 
 
 
