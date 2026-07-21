@@ -149,3 +149,22 @@ h1 {
 
 
 }
+
+.progress {
+
+    text-align: center;
+
+    font-family:
+
+        "Courier New",
+        monospace;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #777;
+
+    margin-bottom: 20px;
+
+}
