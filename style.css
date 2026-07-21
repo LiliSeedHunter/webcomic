@@ -1,12 +1,50 @@
 body {
 
-    background: black;
-    color: white;
+    background:#000;
+    color:white;
 
-    font-family: Arial, sans-serif;
+    margin:0;
+
+    font-family:Arial, sans-serif;
+
+}
+
+
+h1 {
 
     text-align:center;
 
-    padding-top:100px;
+    padding:80px 20px;
+
+}
+
+
+.scene {
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:100px 20px;
+
+}
+
+
+.caption {
+
+    text-align:center;
+
+    font-size:22px;
+
+    margin-bottom:40px;
+
+}
+
+
+.scene img {
+
+    width:100%;
+
+    display:block;
 
 }
