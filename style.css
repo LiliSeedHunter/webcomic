@@ -3,13 +3,18 @@
 body {
 
     background: #050505;
+
     color: #e8e8e8;
 
     margin: 0;
 
-    font-family: "Georgia", "Times New Roman", serif;
+    font-family:
+        "Georgia",
+        "Times New Roman",
+        serif;
 
 }
+
 
 
 /* TITLE */
@@ -31,6 +36,7 @@ h1 {
 }
 
 
+
 /* STORY CONTAINER */
 
 #story {
@@ -38,6 +44,7 @@ h1 {
     width: 100%;
 
 }
+
 
 
 /* SINGLE SCENE */
@@ -61,6 +68,7 @@ h1 {
 }
 
 
+
 .scene.visible {
 
     opacity: 1;
@@ -68,6 +76,7 @@ h1 {
     transform: translateY(0);
 
 }
+
 
 
 /* TEXT */
@@ -81,9 +90,7 @@ h1 {
     line-height: 1.7;
 
     margin:
-
         0 auto
-
         35px;
 
     max-width: 700px;
@@ -95,6 +102,7 @@ h1 {
 }
 
 
+
 /* IMAGE */
 
 .scene img {
@@ -102,6 +110,10 @@ h1 {
     width: 100%;
 
     height: auto;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
 
     display: block;
 
@@ -112,50 +124,14 @@ h1 {
 }
 
 
-/* MOBILE */
 
-@media (max-width: 700px) {
-
-
-    h1 {
-
-        font-size: 30px;
-
-        padding-top: 35px;
-
-    }
-
-
-    .scene {
-
-        padding:
-
-            25px
-
-            12px;
-
-    }
-
-
-    .caption {
-
-        font-size: 18px;
-
-        line-height: 1.6;
-
-        margin-bottom: 25px;
-
-    }
-
-
-}
+/* LOG COUNTER */
 
 .progress {
 
     text-align: center;
 
     font-family:
-
         "Courier New",
         monospace;
 
@@ -169,15 +145,7 @@ h1 {
 
 }
 
-.scene img {
 
-    width:100%;
-
-    aspect-ratio: 2 / 3;
-
-    object-fit: cover;
-
-}
 
 /* CUSTOM SCROLLBAR */
 
@@ -188,11 +156,13 @@ h1 {
 }
 
 
+
 ::-webkit-scrollbar-track {
 
     background: #111;
 
 }
+
 
 
 ::-webkit-scrollbar-thumb {
@@ -206,14 +176,18 @@ h1 {
 }
 
 
+
 ::-webkit-scrollbar-thumb:hover {
 
     background: #777;
 
 }
 
-/* FLOATING NAVIGATION */
 
+
+
+
+/* FLOATING NAVIGATION */
 
 .floating-nav {
 
@@ -227,6 +201,8 @@ h1 {
 
     flex-direction: column;
 
+    align-items: center;
+
     gap: 12px;
 
     z-index: 1000;
@@ -234,6 +210,8 @@ h1 {
 }
 
 
+
+/* BUTTONS */
 
 .floating-nav button {
 
@@ -243,17 +221,45 @@ h1 {
 
     border-radius: 50%;
 
-    border: 1px solid #555;
+    border:
 
-    background: rgba(20,20,20,0.85);
+        1px solid #555;
+
+    background:
+
+        rgba(20,20,20,0.85);
 
     color: white;
 
     font-size: 24px;
 
+    font-family:
+        "Courier New",
+        monospace;
+
     cursor: pointer;
 
     backdrop-filter: blur(5px);
+
+    transition:
+
+        background 0.2s ease,
+
+        transform 0.2s ease;
+
+}
+
+
+
+/* JUMP MULTIPLIER BUTTON */
+
+#jumpButton {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
 
 }
 
@@ -263,11 +269,48 @@ h1 {
 
     background: #333;
 
+    transform: scale(1.08);
+
 }
 
 
 
-@media(max-width:700px){
+/* MOBILE */
+
+@media (max-width:700px){
+
+
+    h1 {
+
+        font-size: 30px;
+
+        padding-top: 35px;
+
+    }
+
+
+
+    .scene {
+
+        padding:
+            25px
+            12px;
+
+    }
+
+
+
+    .caption {
+
+        font-size: 18px;
+
+        line-height: 1.6;
+
+        margin-bottom: 25px;
+
+    }
+
+
 
     .floating-nav {
 
@@ -278,14 +321,24 @@ h1 {
     }
 
 
+
     .floating-nav button {
 
-        width:40px;
+        width: 40px;
 
-        height:40px;
+        height: 40px;
 
-        font-size:20px;
+        font-size: 20px;
 
     }
+
+
+
+    #jumpButton {
+
+        font-size: 12px;
+
+    }
+
 
 }
