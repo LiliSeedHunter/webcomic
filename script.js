@@ -357,16 +357,24 @@ const leaveButton =
 if(ageGate){
 
 
+    // BLOCCA LO SCROLL ALL'APERTURA
+
+    document.body.style.overflow = "hidden";
+
+
+
     if(
         localStorage.getItem("ageAccepted")
         ===
         "true"
     ){
 
-        ageGate.style.display =
-            "none";
+        ageGate.style.display = "none";
+
+        document.body.style.overflow = "auto";
 
     }
+
 
 
 
@@ -386,10 +394,17 @@ if(ageGate){
                 "none";
 
 
+            // RIABILITA LO SCROLL
+
+            document.body.style.overflow =
+                "auto";
+
+
         };
 
 
     }
+
 
 
 
@@ -400,8 +415,27 @@ if(ageGate){
         leaveButton.onclick = () => {
 
 
-            window.location.href =
-                "https://www.google.com";
+            document.body.innerHTML = `
+
+                <div style="
+                    height:100vh;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    background:#000;
+                    color:#aaa;
+                    font-family:Georgia,serif;
+                    text-align:center;
+                ">
+
+                    <h2>
+                        Access denied.<br>
+                        You must be 18+ to continue.
+                    </h2>
+
+                </div>
+
+            `;
 
 
         };
@@ -411,5 +445,4 @@ if(ageGate){
 
 
 }
-
 });
