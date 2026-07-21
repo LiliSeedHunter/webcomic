@@ -168,3 +168,13 @@ h1 {
     margin-bottom: 20px;
 
 }
+
+.scene img {
+
+    width:100%;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+
+}
