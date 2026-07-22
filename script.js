@@ -565,7 +565,9 @@ card.onclick = ()=>{
 // IMAGE LAZY LOAD
 // ======================
 
+let allowImageLoading = true;
 
+        
 const imageObserver =
     new IntersectionObserver(
 
@@ -575,7 +577,10 @@ const imageObserver =
             entries.forEach(entry=>{
 
 
-                if(entry.isIntersecting){
+                    if(
+                        entry.isIntersecting &&
+                        allowImageLoading
+                    ){
 
 
                     const img =
@@ -841,7 +846,11 @@ document
                 let target =
                     current + jumpAmount;
 
+                if(jumpAmount > 1){
 
+                    allowImageLoading = false;
+
+                }
 
 
 
@@ -880,6 +889,43 @@ scenes[target]
 
 
     });
+
+
+
+if(jumpAmount > 1){
+
+
+    setTimeout(()=>{
+
+
+        allowImageLoading = true;
+
+
+        const img =
+            scenes[target].querySelector(
+                "img[data-src]"
+            );
+
+
+        if(img){
+
+
+            img.src =
+                img.dataset.src;
+
+
+            img.removeAttribute(
+                "data-src"
+            );
+
+
+        }
+
+
+    },300);
+
+
+}
 
 
 const img =
