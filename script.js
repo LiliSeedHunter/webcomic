@@ -75,12 +75,10 @@ async function loadSeedTotal(){
 }
 
 
-
-
-
-
-
 async function contributeSeed(button){
+
+
+    console.log("SEED CLICK");
 
 
 
@@ -92,8 +90,7 @@ async function contributeSeed(button){
 
 
 
-
-    const { error } =
+    const { data, error } =
         await supabaseClient
             .rpc(
                 "increment_seed"
@@ -101,9 +98,16 @@ async function contributeSeed(button){
 
 
 
+    console.log(
+        "RPC RESPONSE:",
+        data,
+        error
+    );
+
 
 
     if(error){
+
 
         console.error(
             "Seed increment error:",
@@ -120,13 +124,17 @@ async function contributeSeed(button){
 
         return;
 
+
     }
 
 
 
+    console.log(
+        "Reloading counter..."
+    );
+
 
     await loadSeedTotal();
-
 
 
 
@@ -146,14 +154,6 @@ async function contributeSeed(button){
 
 
 }
-
-
-
-
-
-
-
-
 
 
 
