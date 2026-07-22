@@ -96,7 +96,7 @@ async function loadSeedTotal(){
 
 
     counter.textContent =
-        `🌱 ${current} / ${goal} SEEDS AWAKENED`;
+        `🌱 ${current} / ${goal} SEEDs deposited to Lili`;
 
 
 
