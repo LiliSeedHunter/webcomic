@@ -2,12 +2,14 @@
 // SUPABASE
 // ======================
 
+
 const SUPABASE_URL =
     "https://vihlqgfgrrzyocbtxjmw.supabase.co";
 
 
 const SUPABASE_KEY =
     "sb_publishable_IQ9vEc6XoFoXeqzAU11qfg_9Qx9rdBk";
+
 
 
 const supabaseClient =
@@ -18,9 +20,11 @@ const supabaseClient =
 
 
 
+
 // ======================
 // SEED COUNTER
 // ======================
+
 
 async function loadSeedTotal(){
 
@@ -60,10 +64,11 @@ async function loadSeedTotal(){
 
 
     counter.textContent =
-        data.total;
+        data.total ?? 0;
 
 
 }
+
 
 
 
@@ -102,435 +107,690 @@ async function contributeSeed(){
 
 
 
+
+
+
 // ======================
 // LOAD STORY + QUESTS
 // ======================
 
-Promise.all([
 
-    fetch("story.json").then(r => r.json()),
+async function loadContent(){
 
-    fetch("quests.json").then(r => r.json())
 
-])
+    try{
 
-.then(([story, quests]) => {
 
+        const [
 
+            storyResponse,
 
-    const container =
-        document.getElementById(
-            "story"
-        );
+            questsResponse
 
+        ] = await Promise.all([
 
 
-    const questContainer =
-        document.getElementById(
-            "quest-list"
-        );
+            fetch("story.json"),
 
 
+            fetch("quests.json")
 
-    const total =
-        story.length;
 
+        ]);
 
 
-    // ======================
-    // LOAD GLOBAL SEED TOTAL
-    // ======================
 
-    loadSeedTotal();
 
+        if(!storyResponse.ok){
 
+            throw new Error(
+                "story.json loading failed"
+            );
 
+        }
 
 
 
 
-    // ======================
-    // CREA LE QUEST
-    // ======================
+        if(!questsResponse.ok){
 
+            throw new Error(
+                "quests.json loading failed"
+            );
 
-    if(questContainer){
+        }
 
 
 
-        quests.forEach(quest => {
 
+        const story =
+            await storyResponse.json();
 
 
-            const card =
-                document.createElement(
-                    "div"
-                );
 
+        const quests =
+            await questsResponse.json();
 
 
-            card.className =
-                "quest-card";
 
 
+        const container =
+            document.getElementById(
+                "story"
+            );
 
-            card.innerHTML = `
 
 
-                <img
+        const questContainer =
+            document.getElementById(
+                "quest-list"
+            );
 
-                    src="images/${quest.cover}"
 
-                    alt="${quest.title}"
 
-                >
+        const total =
+            story.length;
 
 
 
-                <div class="quest-info">
 
+        loadSeedTotal();
 
-                    <h3>
 
-                        ${quest.title}
 
-                    </h3>
 
 
 
-                    <div class="quest-range">
 
+        // ======================
+        // CREATE QUESTS
+        // ======================
 
-                        LOG ${String(quest.start).padStart(3,"0")}
 
-                        —
+        if(questContainer){
 
-                        LOG ${String(quest.end).padStart(3,"0")}
 
 
-                    </div>
+            quests.forEach(quest=>{
 
 
 
-
-                    <div class="quest-description">
-
-
-                        ${quest.description}
-
-
-                    </div>
-
-
-                </div>
-
-
-            `;
-
-
-
-
-            card.onclick = () => {
-
-
-
-                const target =
-                    document.getElementById(
-                        `log-${quest.start}`
+                const card =
+                    document.createElement(
+                        "div"
                     );
 
 
 
-                if(target){
+                card.className =
+                    "quest-card";
 
 
-                    target.scrollIntoView({
 
-                        behavior:"smooth",
+                card.innerHTML = `
 
-                        block:"start"
 
-                    });
+                    <img
 
+                        src="images/${quest.cover}"
 
-                }
+                        alt="${quest.title}"
 
+                    >
 
-            };
 
 
+                    <div class="quest-info">
 
-            questContainer.appendChild(
-                card
-            );
 
+                        <h3>
+                            ${quest.title}
+                        </h3>
 
 
-        });
 
+                        <div class="quest-range">
 
-    }
 
+                            LOG ${String(quest.start).padStart(3,"0")}
 
+                            —
 
+                            LOG ${String(quest.end).padStart(3,"0")}
 
 
+                        </div>
 
 
 
+                        <div class="quest-description">
 
-    // ======================
-    // CREA LE SCENE
-    // ======================
+                            ${quest.description}
 
+                        </div>
 
-    if(container){
 
 
+                    </div>
 
-        story.forEach((scene,index)=>{
 
+                `;
 
 
-            const block =
-                document.createElement(
-                    "section"
-                );
 
 
 
-            block.className =
-                "scene";
+                card.onclick = ()=>{
 
 
+                    const target =
+                        document.getElementById(
+                            `log-${quest.start}`
+                        );
 
-            block.id =
-                `log-${index+1}`;
 
 
+                    if(target){
 
 
+                        target.scrollIntoView({
 
-            block.innerHTML = `
+                            behavior:"smooth",
 
+                            block:"start"
 
+                        });
 
-                <div class="progress">
 
-
-                    LOG ${String(index+1).padStart(3,"0")}
-
-                    /
-
-                    ${String(total).padStart(3,"0")}
-
-
-                </div>
-
-
-
-
-                <p class="caption">
-
-
-                    ${scene.text}
-
-
-                </p>
-
-
-
-
-
-                <img
-
-
-                    data-src="images/${scene.image}"
-
-
-                    alt=""
-
-
-                >
-
-
-
-
-
-                <button class="seed-button">
-
-
-                    🌱 SEED CONTRIBUTION +1
-
-
-                </button>
-
-
-
-            `;
-
-
-
-
-
-
-            container.appendChild(
-                block
-            );
-
-
-
-
-
-            // ======================
-            // SEED BUTTON
-            // ======================
-
-
-            const seedButton =
-                block.querySelector(
-                    ".seed-button"
-                );
-
-
-
-            if(seedButton){
-
-
-
-                seedButton.onclick = ()=>{
-
-
-
-                    seedButton.disabled =
-                        true;
-
-
-
-                    contributeSeed();
-
-
-
-
-                    setTimeout(()=>{
-
-
-                        seedButton.disabled =
-                            false;
-
-
-                    },1000);
-
+                    }
 
 
                 };
 
 
-            }
+
+
+                questContainer.appendChild(
+                    card
+                );
 
 
 
-        });
+            });
 
 
-    }
-    // ======================
-// LOAD STORY + QUESTS
-// ======================
-
-Promise.all([
-
-    fetch("story.json").then(r => r.json()),
-
-    fetch("quests.json").then(r => r.json())
-
-])
-
-.then(([story, quests]) => {
-
-
-    const container =
-        document.getElementById("story");
-
-
-    const questContainer =
-        document.getElementById("quest-list");
-
-
-    const total =
-        story.length;
+        }
 
 
 
-    // ======================
-    // CREA LE QUEST
-    // ======================
-
-    if(questContainer){
-
-
-        quests.forEach(quest => {
-
-
-            const card =
-                document.createElement("div");
-
-
-            card.className =
-                "quest-card";
 
 
 
-            card.innerHTML = `
-
-                <img
-                    src="images/${quest.cover}"
-                    alt="${quest.title}"
-                >
-
-                <div class="quest-info">
-
-
-                    <h3>
-                        ${quest.title}
-                    </h3>
-
-
-                    <div class="quest-range">
-
-                        LOG ${String(quest.start).padStart(3,"0")}
-                        —
-                        LOG ${String(quest.end).padStart(3,"0")}
-
-                    </div>
-
-
-                    <div class="quest-description">
-
-                        ${quest.description}
-
-                    </div>
-
-
-                </div>
-
-            `;
 
 
 
-            card.onclick = () => {
+        // ======================
+        // CREATE SCENES
+        // ======================
 
 
-                const target =
-                    document.getElementById(
-                        `log-${quest.start}`
+        if(container){
+
+
+
+            story.forEach((scene,index)=>{
+
+
+
+                const block =
+                    document.createElement(
+                        "section"
                     );
 
 
-                if(target){
+
+                block.className =
+                    "scene";
 
 
-                    target.scrollIntoView({
+
+                block.id =
+                    `log-${index+1}`;
+
+
+
+
+
+                block.innerHTML = `
+
+
+
+                    <div class="progress">
+
+
+                        LOG ${String(index+1).padStart(3,"0")}
+
+                        /
+
+                        ${String(total).padStart(3,"0")}
+
+
+                    </div>
+
+
+
+
+
+                    <p class="caption">
+
+                        ${scene.text}
+
+                    </p>
+
+
+
+
+
+                    <img
+
+                        data-src="images/${scene.image}"
+
+                        alt=""
+
+                    >
+
+
+
+
+
+                    <button class="seed-button">
+
+                        🌱 SEED CONTRIBUTION +1
+
+                    </button>
+
+
+
+                `;
+
+
+
+
+                container.appendChild(
+                    block
+                );
+
+
+
+
+
+
+
+                const seedButton =
+                    block.querySelector(
+                        ".seed-button"
+                    );
+
+
+
+                if(seedButton){
+
+
+
+                    seedButton.onclick = ()=>{
+
+
+
+                        seedButton.disabled =
+                            true;
+
+
+
+                        contributeSeed();
+
+
+
+
+                        setTimeout(()=>{
+
+
+                            seedButton.disabled =
+                                false;
+
+
+                        },1000);
+
+
+
+                    };
+
+
+                }
+
+
+
+            });
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+        // ======================
+        // FADE IN
+        // ======================
+
+
+        const sceneObserver =
+            new IntersectionObserver(
+
+                entries=>{
+
+
+                    entries.forEach(entry=>{
+
+
+                        if(entry.isIntersecting){
+
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+
+                        }
+
+
+                    });
+
+
+                },
+
+                {
+
+                    threshold:0.1
+
+                }
+
+            );
+
+
+
+
+        document
+            .querySelectorAll(".scene")
+            .forEach(scene=>{
+
+
+                sceneObserver.observe(scene);
+
+
+            });
+
+
+
+
+
+
+
+
+
+        // ======================
+        // LAZY LOAD IMAGES
+        // ======================
+
+
+        const imageObserver =
+            new IntersectionObserver(
+
+                entries=>{
+
+
+                    entries.forEach(entry=>{
+
+
+                        if(entry.isIntersecting){
+
+
+                            const img =
+                                entry.target;
+
+
+
+                            img.src =
+                                img.dataset.src;
+
+
+
+
+                            img.removeAttribute(
+                                "data-src"
+                            );
+
+
+
+                            imageObserver.unobserve(img);
+
+
+                        }
+
+
+                    });
+
+
+
+                },
+
+                {
+
+                    rootMargin:
+                        "800px 0px"
+
+                }
+
+            );
+
+
+
+
+        document
+            .querySelectorAll(
+                "img[data-src]"
+            )
+            .forEach(img=>{
+
+
+                imageObserver.observe(img);
+
+
+            });
+
+
+
+
+
+
+
+
+
+        // ======================
+        // FLOATING NAVIGATION
+        // ======================
+
+
+        const scenes =
+            document.querySelectorAll(
+                ".scene"
+            );
+
+
+
+        const topButton =
+            document.getElementById(
+                "topButton"
+            );
+
+
+
+        const nextButton =
+            document.getElementById(
+                "nextButton"
+            );
+
+
+
+        const jumpButton =
+            document.getElementById(
+                "jumpButton"
+            );
+
+
+
+
+        let jumpAmount = 1;
+
+
+
+        const jumpValues =
+            [
+                1,
+                10,
+                50
+            ];
+
+
+
+        let jumpIndex = 0;
+
+
+
+
+
+        if(jumpButton){
+
+
+            jumpButton.onclick = ()=>{
+
+
+                jumpIndex++;
+
+
+                if(
+                    jumpIndex >=
+                    jumpValues.length
+                ){
+
+                    jumpIndex = 0;
+
+                }
+
+
+
+                jumpAmount =
+                    jumpValues[jumpIndex];
+
+
+
+                jumpButton.textContent =
+                    jumpAmount+"X";
+
+
+            };
+
+
+        }
+
+
+
+
+
+
+
+        if(topButton){
+
+
+            topButton.onclick = ()=>{
+
+
+                window.scrollTo({
+
+                    top:0,
+
+                    behavior:"smooth"
+
+                });
+
+
+            };
+
+
+        }
+
+
+
+
+
+
+
+        if(nextButton){
+
+
+            nextButton.onclick = ()=>{
+
+
+                let current = 0;
+
+
+
+                scenes.forEach((scene,index)=>{
+
+
+                    const rect =
+                        scene.getBoundingClientRect();
+
+
+
+                    if(
+                        rect.top <
+                        window.innerHeight / 2
+                    ){
+
+                        current=index;
+
+                    }
+
+
+                });
+
+
+
+
+                let target =
+                    current + jumpAmount;
+
+
+
+
+                if(target >= scenes.length){
+
+                    target =
+                        scenes.length - 1;
+
+                }
+
+
+
+
+
+                scenes[target]
+                    .scrollIntoView({
 
                         behavior:"smooth",
 
@@ -539,439 +799,73 @@ Promise.all([
                     });
 
 
-                }
-
 
             };
 
 
+        }
 
-            questContainer.appendChild(card);
 
 
-        });
 
 
     }
 
 
+    catch(error){
 
 
-
-
-
-    // ======================
-    // CREA LE SCENE
-    // ======================
-
-
-    if(container){
-
-
-        story.forEach((scene,index)=>{
-
-
-            const block =
-                document.createElement("section");
-
-
-            block.className =
-                "scene";
-
-
-            block.id =
-                `log-${index+1}`;
-
-
-
-            block.innerHTML = `
-
-
-                <div class="progress">
-
-                    LOG ${String(index+1).padStart(3,"0")}
-                    /
-                    ${String(total).padStart(3,"0")}
-
-                </div>
-
-
-
-                <p class="caption">
-
-                    ${scene.text}
-
-                </p>
-
-
-
-                <img
-
-                    data-src="images/${scene.image}"
-
-                    alt=""
-
-                >
-
-
-
-                <button
-                    class="seed-button"
-                    onclick="contributeSeed()"
-                >
-
-                    🌱 SEED CONTRIBUTION +1
-
-                </button>
-
-
-            `;
-
-
-
-            container.appendChild(block);
-
-
-        });
-
-
-    }
-
-
-
-
-
-
-    // ======================
-    // CARICA TOTALE SEED
-    // ======================
-
-    loadSeedTotal();
-    // ======================
-    // FADE IN
-    // ======================
-
-
-    const sceneObserver =
-        new IntersectionObserver(
-
-            entries => {
-
-
-                entries.forEach(entry=>{
-
-
-                    if(entry.isIntersecting){
-
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-
-                    }
-
-
-                });
-
-
-            },
-
-            {
-                threshold:0.1
-            }
-
+        console.error(
+            "Loading error:",
+            error
         );
 
 
-
-    document
-        .querySelectorAll(".scene")
-        .forEach(scene=>{
-
-
-            sceneObserver.observe(scene);
-
-
-        });
-
-
-
-
-
-
-
-
-    // ======================
-    // LAZY LOAD IMMAGINI
-    // ======================
-
-
-    const imageObserver =
-        new IntersectionObserver(
-
-            entries=>{
-
-
-                entries.forEach(entry=>{
-
-
-                    if(entry.isIntersecting){
-
-
-                        const img =
-                            entry.target;
-
-
-                        img.src =
-                            img.dataset.src;
-
-
-
-                        img.removeAttribute(
-                            "data-src"
-                        );
-
-
-
-                        imageObserver.unobserve(img);
-
-
-                    }
-
-
-                });
-
-
-            },
-
-            {
-
-                rootMargin:"800px 0px"
-
-            }
-
-        );
-
-
-
-
-    document
-        .querySelectorAll("img[data-src]")
-        .forEach(img=>{
-
-
-            imageObserver.observe(img);
-
-
-        });
-
-
-
-
-
-
-
-
-
-    // ======================
-    // FLOATING NAVIGATION
-    // ======================
-
-
-    const scenes =
-        document.querySelectorAll(".scene");
-
-
-
-    const topButton =
-        document.getElementById("topButton");
-
-
-    const nextButton =
-        document.getElementById("nextButton");
-
-
-    const jumpButton =
-        document.getElementById("jumpButton");
-
-
-
-    let jumpAmount = 1;
-
-
-
-    const jumpValues =
-        [
-            1,
-            10,
-            50
-        ];
-
-
-
-    let jumpIndex = 0;
-
-
-
-
-
-    if(jumpButton){
-
-
-        jumpButton.onclick = ()=>{
-
-
-            jumpIndex++;
-
-
-            if(jumpIndex >= jumpValues.length){
-
-                jumpIndex = 0;
-
-            }
-
-
-
-            jumpAmount =
-                jumpValues[jumpIndex];
-
-
-
-            jumpButton.textContent =
-                jumpAmount+"X";
-
-
-        };
-
-
     }
 
 
-
-
-
-
-    if(topButton){
-
-
-        topButton.onclick = ()=>{
-
-
-            window.scrollTo({
-
-                top:0,
-
-                behavior:"smooth"
-
-            });
-
-
-        };
-
-
-    }
+}
 
 
 
 
 
 
-    if(nextButton){
-
-
-        nextButton.onclick = ()=>{
-
-
-            let current = 0;
-
-
-
-            scenes.forEach((scene,index)=>{
-
-
-                const rect =
-                    scene.getBoundingClientRect();
-
-
-
-                if(
-                    rect.top <
-                    window.innerHeight/2
-                ){
-
-                    current=index;
-
-                }
-
-
-            });
-
-
-
-            let target =
-                current+jumpAmount;
-
-
-
-            if(target >= scenes.length){
-
-                target =
-                    scenes.length-1;
-
-            }
-
-
-
-            scenes[target]
-                .scrollIntoView({
-
-                    behavior:"smooth",
-
-                    block:"start"
-
-                });
-
-
-        };
-
-
-    }
-
-
-
-})
-
-.catch(error=>{
-
-
-    console.error(
-        "Loading error:",
-        error
-    );
-
-
-});
 
 // ======================
 // AGE VERIFICATION
 // ======================
 
 
-const ageGate =
-    document.getElementById("age-gate");
-
-
-const enterButton =
-    document.getElementById("enterButton");
-
-
-const leaveButton =
-    document.getElementById("leaveButton");
+function setupAgeGate(){
 
 
 
-if(ageGate){
+    const ageGate =
+        document.getElementById(
+            "age-gate"
+        );
+
+
+
+    const enterButton =
+        document.getElementById(
+            "enterButton"
+        );
+
+
+
+    const leaveButton =
+        document.getElementById(
+            "leaveButton"
+        );
+
+
+
+    if(!ageGate){
+        return;
+    }
+
 
 
     document.body.style.overflow =
@@ -979,8 +873,11 @@ if(ageGate){
 
 
 
+
     if(
-        localStorage.getItem("ageAccepted")
+        localStorage.getItem(
+            "ageAccepted"
+        )
         ===
         "true"
     ){
@@ -998,6 +895,10 @@ if(ageGate){
 
 
 
+
+
+
+
     if(enterButton){
 
 
@@ -1005,13 +906,18 @@ if(ageGate){
 
 
             localStorage.setItem(
+
                 "ageAccepted",
+
                 "true"
+
             );
+
 
 
             ageGate.style.display =
                 "none";
+
 
 
             document.body.style.overflow =
@@ -1022,6 +928,7 @@ if(ageGate){
 
 
     }
+
 
 
 
@@ -1048,8 +955,10 @@ if(ageGate){
                 ">
 
                     <h2>
+
                         Access denied.<br>
                         You must be 18+ to continue.
+
                     </h2>
 
 
@@ -1065,3 +974,17 @@ if(ageGate){
 
 
 }
+
+
+
+
+
+
+// ======================
+// START
+// ======================
+
+
+setupAgeGate();
+
+loadContent();
