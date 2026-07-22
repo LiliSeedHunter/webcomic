@@ -37,7 +37,6 @@ async function loadSeedTotal(){
 
 
     if(!counter){
-        console.log("SEED COUNTER ELEMENT NOT FOUND");
         return;
     }
 
@@ -49,14 +48,6 @@ async function loadSeedTotal(){
             .select("*")
             .eq("id",1)
             .single();
-
-
-
-    console.log(
-        "SEED DATABASE:",
-        data,
-        error
-    );
 
 
 
@@ -83,9 +74,6 @@ async function loadSeedTotal(){
 async function contributeSeed(button){
 
 
-    console.log("SEED CLICK");
-
-
 
     if(button){
 
@@ -100,14 +88,6 @@ async function contributeSeed(button){
             .rpc(
                 "increment_seed"
             );
-
-
-
-    console.log(
-        "RPC RESPONSE:",
-        data,
-        error
-    );
 
 
 
@@ -131,12 +111,6 @@ async function contributeSeed(button){
 
 
     }
-
-
-
-    console.log(
-        "Reloading counter..."
-    );
 
 
     await loadSeedTotal();
