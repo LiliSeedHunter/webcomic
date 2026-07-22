@@ -24,12 +24,26 @@ const supabaseClient =
 
 async function loadSeedTotal(){
 
+
+    const counter =
+        document.getElementById(
+            "seed-total"
+        );
+
+
+    if(!counter){
+        return;
+    }
+
+
+
     const { data, error } =
         await supabaseClient
             .from("seed_counter")
             .select("total")
             .eq("id",1)
             .single();
+
 
 
     if(error){
@@ -44,23 +58,25 @@ async function loadSeedTotal(){
     }
 
 
-    document
-        .getElementById("seed-total")
-        .textContent =
-            data.total;
+
+    counter.textContent =
+        data.total;
+
 
 }
+
 
 
 
 async function contributeSeed(){
 
 
-    const { data, error } =
+    const { error } =
         await supabaseClient
             .rpc(
                 "increment_seed"
             );
+
 
 
     if(error){
@@ -75,10 +91,350 @@ async function contributeSeed(){
     }
 
 
+
     loadSeedTotal();
 
+
 }
+
+
+
+
+
+
 // ======================
+// LOAD STORY + QUESTS
+// ======================
+
+Promise.all([
+
+    fetch("story.json").then(r => r.json()),
+
+    fetch("quests.json").then(r => r.json())
+
+])
+
+.then(([story, quests]) => {
+
+
+
+    const container =
+        document.getElementById(
+            "story"
+        );
+
+
+
+    const questContainer =
+        document.getElementById(
+            "quest-list"
+        );
+
+
+
+    const total =
+        story.length;
+
+
+
+    // ======================
+    // LOAD GLOBAL SEED TOTAL
+    // ======================
+
+    loadSeedTotal();
+
+
+
+
+
+
+
+    // ======================
+    // CREA LE QUEST
+    // ======================
+
+
+    if(questContainer){
+
+
+
+        quests.forEach(quest => {
+
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+
+            card.className =
+                "quest-card";
+
+
+
+            card.innerHTML = `
+
+
+                <img
+
+                    src="images/${quest.cover}"
+
+                    alt="${quest.title}"
+
+                >
+
+
+
+                <div class="quest-info">
+
+
+                    <h3>
+
+                        ${quest.title}
+
+                    </h3>
+
+
+
+                    <div class="quest-range">
+
+
+                        LOG ${String(quest.start).padStart(3,"0")}
+
+                        —
+
+                        LOG ${String(quest.end).padStart(3,"0")}
+
+
+                    </div>
+
+
+
+
+                    <div class="quest-description">
+
+
+                        ${quest.description}
+
+
+                    </div>
+
+
+                </div>
+
+
+            `;
+
+
+
+
+            card.onclick = () => {
+
+
+
+                const target =
+                    document.getElementById(
+                        `log-${quest.start}`
+                    );
+
+
+
+                if(target){
+
+
+                    target.scrollIntoView({
+
+                        behavior:"smooth",
+
+                        block:"start"
+
+                    });
+
+
+                }
+
+
+            };
+
+
+
+            questContainer.appendChild(
+                card
+            );
+
+
+
+        });
+
+
+    }
+
+
+
+
+
+
+
+
+
+    // ======================
+    // CREA LE SCENE
+    // ======================
+
+
+    if(container){
+
+
+
+        story.forEach((scene,index)=>{
+
+
+
+            const block =
+                document.createElement(
+                    "section"
+                );
+
+
+
+            block.className =
+                "scene";
+
+
+
+            block.id =
+                `log-${index+1}`;
+
+
+
+
+
+            block.innerHTML = `
+
+
+
+                <div class="progress">
+
+
+                    LOG ${String(index+1).padStart(3,"0")}
+
+                    /
+
+                    ${String(total).padStart(3,"0")}
+
+
+                </div>
+
+
+
+
+                <p class="caption">
+
+
+                    ${scene.text}
+
+
+                </p>
+
+
+
+
+
+                <img
+
+
+                    data-src="images/${scene.image}"
+
+
+                    alt=""
+
+
+                >
+
+
+
+
+
+                <button class="seed-button">
+
+
+                    🌱 SEED CONTRIBUTION +1
+
+
+                </button>
+
+
+
+            `;
+
+
+
+
+
+
+            container.appendChild(
+                block
+            );
+
+
+
+
+
+            // ======================
+            // SEED BUTTON
+            // ======================
+
+
+            const seedButton =
+                block.querySelector(
+                    ".seed-button"
+                );
+
+
+
+            if(seedButton){
+
+
+
+                seedButton.onclick = ()=>{
+
+
+
+                    seedButton.disabled =
+                        true;
+
+
+
+                    contributeSeed();
+
+
+
+
+                    setTimeout(()=>{
+
+
+                        seedButton.disabled =
+                            false;
+
+
+                    },1000);
+
+
+
+                };
+
+
+            }
+
+
+
+        });
+
+
+    }
+    // ======================
 // LOAD STORY + QUESTS
 // ======================
 
@@ -240,11 +596,13 @@ Promise.all([
                 </div>
 
 
+
                 <p class="caption">
 
                     ${scene.text}
 
                 </p>
+
 
 
                 <img
@@ -254,6 +612,18 @@ Promise.all([
                     alt=""
 
                 >
+
+
+
+                <button
+                    class="seed-button"
+                    onclick="contributeSeed()"
+                >
+
+                    🌱 SEED CONTRIBUTION +1
+
+                </button>
+
 
             `;
 
@@ -272,426 +642,8 @@ Promise.all([
 
 
 
-
     // ======================
-    // FADE IN
-    // ======================
-
-
-    const sceneObserver =
-        new IntersectionObserver(
-
-            entries => {
-
-
-                entries.forEach(entry=>{
-
-
-                    if(entry.isIntersecting){
-
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-
-                    }
-
-
-                });
-
-
-            },
-
-            {
-                threshold:0.1
-            }
-
-        );
-
-
-
-    document
-        .querySelectorAll(".scene")
-        .forEach(scene=>{
-
-
-            sceneObserver.observe(scene);
-
-
-        });
-
-
-
-
-
-
-
-
-
-    // ======================
-    // LAZY LOAD IMMAGINI
+    // CARICA TOTALE SEED
     // ======================
 
-
-    const imageObserver =
-        new IntersectionObserver(
-
-            entries=>{
-
-
-                entries.forEach(entry=>{
-
-
-                    if(entry.isIntersecting){
-
-
-                        const img =
-                            entry.target;
-
-
-                        img.src =
-                            img.dataset.src;
-
-
-
-                        img.removeAttribute(
-                            "data-src"
-                        );
-
-
-
-                        imageObserver.unobserve(img);
-
-
-                    }
-
-
-                });
-
-
-            },
-
-            {
-
-                rootMargin:"800px 0px"
-
-            }
-
-        );
-
-
-
-
-    document
-        .querySelectorAll("img[data-src]")
-        .forEach(img=>{
-
-
-            imageObserver.observe(img);
-
-
-        });
-
-
-
-
-
-
-
-
-
-    // ======================
-    // FLOATING NAVIGATION
-    // ======================
-
-
-    const scenes =
-        document.querySelectorAll(".scene");
-
-
-
-    const topButton =
-        document.getElementById("topButton");
-
-
-    const nextButton =
-        document.getElementById("nextButton");
-
-
-    const jumpButton =
-        document.getElementById("jumpButton");
-
-
-
-    let jumpAmount = 1;
-
-
-    const jumpValues =
-        [
-            1,
-            10,
-            50
-        ];
-
-
-
-    let jumpIndex = 0;
-
-
-
-
-
-    if(jumpButton){
-
-
-        jumpButton.onclick = ()=>{
-
-
-            jumpIndex++;
-
-
-            if(jumpIndex >= jumpValues.length){
-
-                jumpIndex=0;
-
-            }
-
-
-
-            jumpAmount =
-                jumpValues[jumpIndex];
-
-
-
-            jumpButton.textContent =
-                jumpAmount+"X";
-
-
-        };
-
-
-    }
-
-
-
-
-
-
-    if(topButton){
-
-
-        topButton.onclick = ()=>{
-
-
-            window.scrollTo({
-
-                top:0,
-
-                behavior:"smooth"
-
-            });
-
-
-        };
-
-
-    }
-
-
-
-
-
-
-    if(nextButton){
-
-
-        nextButton.onclick = ()=>{
-
-
-            let current = 0;
-
-
-
-            scenes.forEach((scene,index)=>{
-
-
-                const rect =
-                    scene.getBoundingClientRect();
-
-
-
-                if(
-                    rect.top <
-                    window.innerHeight/2
-                ){
-
-                    current=index;
-
-                }
-
-
-            });
-
-
-
-            let target =
-                current+jumpAmount;
-
-
-
-            if(target >= scenes.length){
-
-                target =
-                    scenes.length-1;
-
-            }
-
-
-
-            scenes[target]
-                .scrollIntoView({
-
-                    behavior:"smooth",
-
-                    block:"start"
-
-                });
-
-
-        };
-
-
-    }
-
-
-
-})
-
-.catch(error=>{
-
-
-    console.error(
-        "Loading error:",
-        error
-    );
-
-
-});
-
-
-
-
-
-
-
-// ======================
-// AGE VERIFICATION
-// ======================
-
-
-const ageGate =
-    document.getElementById("age-gate");
-
-
-const enterButton =
-    document.getElementById("enterButton");
-
-
-const leaveButton =
-    document.getElementById("leaveButton");
-
-
-
-if(ageGate){
-
-
-    document.body.style.overflow =
-        "hidden";
-
-
-
-    if(
-        localStorage.getItem("ageAccepted")
-        ===
-        "true"
-    ){
-
-
-        ageGate.style.display =
-            "none";
-
-
-        document.body.style.overflow =
-            "auto";
-
-
-    }
-
-
-
-    if(enterButton){
-
-
-        enterButton.onclick = ()=>{
-
-
-            localStorage.setItem(
-                "ageAccepted",
-                "true"
-            );
-
-
-            ageGate.style.display =
-                "none";
-
-
-            document.body.style.overflow =
-                "auto";
-
-
-        };
-
-
-    }
-
-
-
-
-    if(leaveButton){
-
-
-        leaveButton.onclick = ()=>{
-
-
-            document.body.innerHTML = `
-
-                <div style="
-                    height:100vh;
-                    display:flex;
-                    justify-content:center;
-                    align-items:center;
-                    background:#000;
-                    color:#aaa;
-                    font-family:Georgia,serif;
-                    text-align:center;
-                ">
-
-                    <h2>
-                        Access denied.<br>
-                        You must be 18+ to continue.
-                    </h2>
-
-
-                </div>
-
-            `;
-
-
-        };
-
-
-    }
-
-
-}
+    loadSeedTotal();
