@@ -458,19 +458,37 @@ card.onclick = ()=>{
 
 
 
-                if(seedButton){
+if(seedButton){
 
 
-                    seedButton.onclick = ()=>{
+    seedButton.onclick = ()=>{
 
 
-                    contributeSeed(seedButton);
+        seedButton.innerHTML =
+            '<span class="seed-icon">🌱</span> Overflow Registered ✓';
 
 
-              };
+
+        contributeSeed(seedButton);
 
 
-        }
+
+        setTimeout(()=>{
+
+
+            seedButton.innerHTML =
+                '<span class="seed-icon">🌱</span> Register Overflow +1';
+
+
+
+        },1500);
+
+
+
+    };
+
+
+}
 
 
 
