@@ -1,3 +1,7 @@
+// ======================
+// LOAD STORY + QUESTS
+// ======================
+
 Promise.all([
 
     fetch("story.json").then(r => r.json()),
@@ -9,124 +13,188 @@ Promise.all([
 .then(([story, quests]) => {
 
 
+    const container =
+        document.getElementById("story");
+
+
     const questContainer =
-    document.getElementById("quest-list");
+        document.getElementById("quest-list");
 
 
-    const total = story.length;
-
-// ======================
-// CREA LE QUEST
-// ======================
-
-quests.forEach(quest => {
-
-    const card =
-        document.createElement("div");
-
-    card.className =
-        "quest-card";
-
-    card.innerHTML = `
-
-        <img
-            src="images/${quest.cover}"
-            alt="${quest.title}"
-        >
-
-        <div class="quest-info">
-
-            <h3>
-                ${quest.title}
-            </h3>
-
-            <div class="quest-range">
-
-                LOG ${String(quest.start).padStart(3,"0")}
-                —
-                ${String(quest.end).padStart(3,"0")}
-
-            </div>
-
-            <div class="quest-description">
-
-                ${quest.description}
-
-            </div>
-
-        </div>
-
-    `;
-
-    card.onclick = () => {
-
-        const scene =
-            document.querySelectorAll(".scene")[quest.start - 1];
-
-        if(scene){
-
-            scene.scrollIntoView({
-
-                behavior:"smooth",
-
-                block:"start"
-
-            });
-
-        }
-
-    };
-
-    questContainer.appendChild(card);
-
-});
-
-    // CREA LE SCENE
-
-    story.forEach((scene, index) => {
+    const total =
+        story.length;
 
 
-        const block =
-            document.createElement("section");
+
+    // ======================
+    // CREA LE QUEST
+    // ======================
+
+    if(questContainer){
 
 
-        block.className = "scene";
+        quests.forEach(quest => {
 
 
-        block.innerHTML = `
-
-            <div class="progress">
-                LOG ${String(index + 1).padStart(3, "0")}
-                /
-                ${String(total).padStart(3, "0")}
-            </div>
+            const card =
+                document.createElement("div");
 
 
-            <p class="caption">
-                ${scene.text}
-            </p>
+            card.className =
+                "quest-card";
 
 
-            <img
-                data-src="images/${scene.image}"
-                alt=""
-            >
 
-        `;
+            card.innerHTML = `
+
+                <img
+                    src="images/${quest.cover}"
+                    alt="${quest.title}"
+                >
+
+                <div class="quest-info">
 
 
-        container.appendChild(block);
-        block.id =
-            `log-${index+1}`;
+                    <h3>
+                        ${quest.title}
+                    </h3>
 
-    });
+
+                    <div class="quest-range">
+
+                        LOG ${String(quest.start).padStart(3,"0")}
+                        —
+                        LOG ${String(quest.end).padStart(3,"0")}
+
+                    </div>
+
+
+                    <div class="quest-description">
+
+                        ${quest.description}
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+
+
+            card.onclick = () => {
+
+
+                const target =
+                    document.getElementById(
+                        `log-${quest.start}`
+                    );
+
+
+                if(target){
+
+
+                    target.scrollIntoView({
+
+                        behavior:"smooth",
+
+                        block:"start"
+
+                    });
+
+
+                }
+
+
+            };
+
+
+
+            questContainer.appendChild(card);
+
+
+        });
+
+
+    }
+
+
 
 
 
 
 
     // ======================
-    // FADE IN SCENE
+    // CREA LE SCENE
+    // ======================
+
+
+    if(container){
+
+
+        story.forEach((scene,index)=>{
+
+
+            const block =
+                document.createElement("section");
+
+
+            block.className =
+                "scene";
+
+
+            block.id =
+                `log-${index+1}`;
+
+
+
+            block.innerHTML = `
+
+
+                <div class="progress">
+
+                    LOG ${String(index+1).padStart(3,"0")}
+                    /
+                    ${String(total).padStart(3,"0")}
+
+                </div>
+
+
+                <p class="caption">
+
+                    ${scene.text}
+
+                </p>
+
+
+                <img
+
+                    data-src="images/${scene.image}"
+
+                    alt=""
+
+                >
+
+            `;
+
+
+
+            container.appendChild(block);
+
+
+        });
+
+
+    }
+
+
+
+
+
+
+
+    // ======================
+    // FADE IN
     // ======================
 
 
@@ -136,7 +204,7 @@ quests.forEach(quest => {
             entries => {
 
 
-                entries.forEach(entry => {
+                entries.forEach(entry=>{
 
 
                     if(entry.isIntersecting){
@@ -165,11 +233,15 @@ quests.forEach(quest => {
 
     document
         .querySelectorAll(".scene")
-        .forEach(scene => {
+        .forEach(scene=>{
+
 
             sceneObserver.observe(scene);
 
+
         });
+
+
 
 
 
@@ -185,10 +257,10 @@ quests.forEach(quest => {
     const imageObserver =
         new IntersectionObserver(
 
-            entries => {
+            entries=>{
 
 
-                entries.forEach(entry => {
+                entries.forEach(entry=>{
 
 
                     if(entry.isIntersecting){
@@ -202,9 +274,11 @@ quests.forEach(quest => {
                             img.dataset.src;
 
 
+
                         img.removeAttribute(
                             "data-src"
                         );
+
 
 
                         imageObserver.unobserve(img);
@@ -219,20 +293,26 @@ quests.forEach(quest => {
             },
 
             {
+
                 rootMargin:"800px 0px"
+
             }
 
         );
 
 
 
+
     document
         .querySelectorAll("img[data-src]")
-        .forEach(img => {
+        .forEach(img=>{
+
 
             imageObserver.observe(img);
 
+
         });
+
 
 
 
@@ -248,6 +328,7 @@ quests.forEach(quest => {
 
     const scenes =
         document.querySelectorAll(".scene");
+
 
 
     const topButton =
@@ -266,11 +347,13 @@ quests.forEach(quest => {
     let jumpAmount = 1;
 
 
-    const jumpValues = [
-        1,
-        10,
-        50
-    ];
+    const jumpValues =
+        [
+            1,
+            10,
+            50
+        ];
+
 
 
     let jumpIndex = 0;
@@ -279,12 +362,10 @@ quests.forEach(quest => {
 
 
 
-    // CAMBIO MOLTIPLICATORE
-
     if(jumpButton){
 
 
-        jumpButton.onclick = () => {
+        jumpButton.onclick = ()=>{
 
 
             jumpIndex++;
@@ -292,17 +373,19 @@ quests.forEach(quest => {
 
             if(jumpIndex >= jumpValues.length){
 
-                jumpIndex = 0;
+                jumpIndex=0;
 
             }
+
 
 
             jumpAmount =
                 jumpValues[jumpIndex];
 
 
+
             jumpButton.textContent =
-                jumpAmount + "X";
+                jumpAmount+"X";
 
 
         };
@@ -315,12 +398,10 @@ quests.forEach(quest => {
 
 
 
-    // TORNA ALL'INIZIO
-
     if(topButton){
 
 
-        topButton.onclick = () => {
+        topButton.onclick = ()=>{
 
 
             window.scrollTo({
@@ -342,12 +423,10 @@ quests.forEach(quest => {
 
 
 
-    // SALTO AVANTI
-
     if(nextButton){
 
 
-        nextButton.onclick = () => {
+        nextButton.onclick = ()=>{
 
 
             let current = 0;
@@ -364,10 +443,10 @@ quests.forEach(quest => {
 
                 if(
                     rect.top <
-                    window.innerHeight / 2
+                    window.innerHeight/2
                 ){
 
-                    current = index;
+                    current=index;
 
                 }
 
@@ -376,21 +455,21 @@ quests.forEach(quest => {
 
 
 
-            let targetIndex =
-                current + jumpAmount;
+            let target =
+                current+jumpAmount;
 
 
 
-            if(targetIndex >= scenes.length){
+            if(target >= scenes.length){
 
-                targetIndex =
-                    scenes.length - 1;
+                target =
+                    scenes.length-1;
 
             }
 
 
 
-            scenes[targetIndex]
+            scenes[target]
                 .scrollIntoView({
 
                     behavior:"smooth",
@@ -404,6 +483,27 @@ quests.forEach(quest => {
 
 
     }
+
+
+
+})
+
+.catch(error=>{
+
+
+    console.error(
+        "Loading error:",
+        error
+    );
+
+
+});
+
+
+
+
+
+
 
 // ======================
 // AGE VERIFICATION
@@ -426,9 +526,8 @@ const leaveButton =
 if(ageGate){
 
 
-    // BLOCCA LO SCROLL ALL'APERTURA
-
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow =
+        "hidden";
 
 
 
@@ -438,19 +537,23 @@ if(ageGate){
         "true"
     ){
 
-        ageGate.style.display = "none";
 
-        document.body.style.overflow = "auto";
+        ageGate.style.display =
+            "none";
+
+
+        document.body.style.overflow =
+            "auto";
+
 
     }
-
 
 
 
     if(enterButton){
 
 
-        enterButton.onclick = () => {
+        enterButton.onclick = ()=>{
 
 
             localStorage.setItem(
@@ -462,8 +565,6 @@ if(ageGate){
             ageGate.style.display =
                 "none";
 
-
-            // RIABILITA LO SCROLL
 
             document.body.style.overflow =
                 "auto";
@@ -477,11 +578,10 @@ if(ageGate){
 
 
 
-
     if(leaveButton){
 
 
-        leaveButton.onclick = () => {
+        leaveButton.onclick = ()=>{
 
 
             document.body.innerHTML = `
@@ -502,6 +602,7 @@ if(ageGate){
                         You must be 18+ to continue.
                     </h2>
 
+
                 </div>
 
             `;
@@ -514,4 +615,3 @@ if(ageGate){
 
 
 }
-});
