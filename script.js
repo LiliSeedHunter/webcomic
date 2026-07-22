@@ -119,6 +119,81 @@ async function loadSeedTotal(){
 
 }
 
+async function contributeSeed(button){
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.classList.add(
+            "registered"
+        );
+
+    }
+
+
+
+    const { error } =
+        await supabaseClient
+            .rpc(
+                "increment_seed"
+            );
+
+
+
+    if(error){
+
+
+        console.error(
+            "Seed increment error:",
+            error
+        );
+
+
+        if(button){
+
+            button.disabled = false;
+
+            button.classList.remove(
+                "registered"
+            );
+
+        }
+
+
+        return;
+
+
+    }
+
+
+
+    await loadSeedTotal();
+
+
+
+    if(button){
+
+
+        setTimeout(()=>{
+
+
+            button.disabled = false;
+
+
+            button.classList.remove(
+                "registered"
+            );
+
+
+        },1500);
+
+
+    }
+
+
+}
 
 // ======================
 // LOAD STORY + QUESTS
