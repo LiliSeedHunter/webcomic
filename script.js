@@ -428,7 +428,9 @@ card.onclick = ()=>{
                     <button class="seed-button">
 
 
-                        🌱 Register Overflow +1
+                            <span class="seed-icon">🌱</span>
+
+                            Register Overflow +1
 
 
                     </button>
