@@ -15,6 +15,7 @@
 
 <body>
 
+
 <div id="age-gate">
 
     <div class="age-box">
@@ -47,8 +48,32 @@
 
 
 
-<h1>Lily the Seed Hunter</h1>
+<h1>
+    Lily the Seed Hunter
+</h1>
 
+
+
+<!-- ===================== -->
+<!-- GLOBAL SEED COUNTER -->
+<!-- ===================== -->
+
+
+<div class="seed-counter">
+
+    🌱 TOTAL SEED CONTRIBUTION:
+
+    <span id="seed-total">
+        0
+    </span>
+
+</div>
+
+
+
+<!-- ===================== -->
+<!-- COVER -->
+<!-- ===================== -->
 
 
 <section class="cover">
@@ -58,11 +83,13 @@
         alt="Story cover"
     >
 
+
     <div class="cover-text">
 
         <h2>
             The Search for the SEED
         </h2>
+
 
         <p>
             A strange journey begins when Lili,
@@ -71,21 +98,30 @@
             secrets and unknown worlds.
         </p>
 
+
         <p>
             Follow her mission to discover the truth
             behind the SEED.
         </p>
 
+
     </div>
+
+
 
     <button
         class="start-button"
         onclick="document.getElementById('quests').scrollIntoView({behavior:'smooth'})"
     >
+
         START READING
+
     </button>
 
+
 </section>
+
+
 
 
 
@@ -93,19 +129,28 @@
 <!-- QUESTS -->
 <!-- ===================== -->
 
+
 <section id="quests">
+
 
     <h2 class="quests-title">
         QUESTS
     </h2>
 
+
+
     <div id="quest-list">
 
-        <!-- Le Quest verranno create automaticamente da script.js -->
+        <!-- Le Quest vengono generate automaticamente -->
 
     </div>
 
+
 </section>
+
+
+
+
 
 
 
@@ -113,7 +158,12 @@
 <!-- STORY -->
 <!-- ===================== -->
 
+
 <main id="story"></main>
+
+
+
+
 
 
 
@@ -121,25 +171,37 @@
 <!-- FLOATING NAVIGATION -->
 <!-- ===================== -->
 
+
 <div class="floating-nav">
+
 
     <button id="jumpButton">
         1X
     </button>
 
+
+
     <button id="topButton">
         ↑
     </button>
+
+
 
     <button id="nextButton">
         ↓
     </button>
 
+
 </div>
 
 
 
+
+
+
+
 <script src="script.js"></script>
+
 
 </body>
 
