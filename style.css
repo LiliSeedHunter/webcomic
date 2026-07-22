@@ -1045,14 +1045,33 @@ h1 {
 }
 
 
-
 .age-buttons {
 
     flex-direction:column;
 
 }
 
+.seed-button {
 
+    width:90%;
+
+    padding:9px 16px;
+
+    margin:25px auto 5px;
+
+    font-size:12px;
+
+    letter-spacing:1px;
+
+}
+
+
+
+.seed-icon {
+
+    font-size:15px;
+
+}
 }
 
 .seed-icon {
