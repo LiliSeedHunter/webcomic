@@ -2,6 +2,18 @@
    GLOBAL
    ====================== */
 
+* {
+    box-sizing:border-box;
+}
+
+
+html {
+
+    scroll-behavior:smooth;
+
+}
+
+
 body {
 
     background:#f7f5ed;
@@ -23,6 +35,7 @@ body {
    TITLE
    ====================== */
 
+
 h1 {
 
     text-align:center;
@@ -31,7 +44,7 @@ h1 {
 
     font-weight:normal;
 
-    letter-spacing:2px;
+    letter-spacing:4px;
 
     padding:60px 20px 40px;
 
@@ -52,13 +65,14 @@ h1 {
 
     max-width:900px;
 
-    margin:0 auto 80px;
+    margin:0 auto 90px;
 
     padding:20px 30px;
 
     text-align:center;
 
 }
+
 
 
 .cover img {
@@ -81,7 +95,7 @@ h1 {
 
     max-width:650px;
 
-    margin:0 auto;
+    margin:auto;
 
 }
 
@@ -93,7 +107,7 @@ h1 {
 
     font-weight:normal;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
 
     margin-bottom:25px;
 
@@ -107,7 +121,7 @@ h1 {
 
     font-size:20px;
 
-    line-height:1.7;
+    line-height:1.8;
 
     color:#555;
 
@@ -119,7 +133,7 @@ h1 {
 
     margin-top:35px;
 
-    padding:15px 35px;
+    padding:15px 40px;
 
     background:#333;
 
@@ -131,11 +145,11 @@ h1 {
         "Courier New",
         monospace;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:.25s;
 
 }
 
@@ -160,9 +174,9 @@ h1 {
 
     max-width:1200px;
 
-    margin:0 auto 80px;
+    margin:auto;
 
-    padding:20px 30px;
+    padding:20px 30px 100px;
 
 }
 
@@ -176,7 +190,7 @@ h1 {
 
     font-weight:normal;
 
-    letter-spacing:4px;
+    letter-spacing:5px;
 
     margin-bottom:50px;
 
@@ -191,9 +205,10 @@ h1 {
     display:grid;
 
     grid-template-columns:
+
         repeat(
             auto-fit,
-            minmax(360px,1fr)
+            minmax(350px,1fr)
         );
 
     gap:40px;
@@ -204,7 +219,7 @@ h1 {
 
 .quest-card {
 
-    background:#ffffff;
+    background:#fff;
 
     border:1px solid #ddd6c8;
 
@@ -216,8 +231,6 @@ h1 {
 
         transform .25s ease,
 
-        border-color .25s ease,
-
         box-shadow .25s ease;
 
 }
@@ -226,25 +239,19 @@ h1 {
 
 .quest-card:hover {
 
-    transform:translateY(-6px);
-
-    border-color:#aaa397;
+    transform:translateY(-8px);
 
     box-shadow:
 
-        0 15px 35px rgba(60,50,30,.15);
+        0 15px 35px rgba(50,40,20,.18);
 
 }
 
 
 
-/* QUEST IMAGE - mantiene proporzioni originali */
-
 .quest-card img {
 
     width:100%;
-
-    height:auto;
 
     display:block;
 
@@ -268,9 +275,7 @@ h1 {
 
     font-weight:normal;
 
-    letter-spacing:1px;
-
-    color:#333;
+    letter-spacing:2px;
 
 }
 
@@ -280,15 +285,15 @@ h1 {
 
     margin-top:12px;
 
-    color:#888277;
-
     font-family:
         "Courier New",
         monospace;
 
-    font-size:14px;
+    font-size:13px;
 
     letter-spacing:2px;
+
+    color:#888;
 
 }
 
@@ -298,11 +303,11 @@ h1 {
 
     margin-top:18px;
 
-    color:#555;
+    font-size:17px;
 
     line-height:1.6;
 
-    font-size:17px;
+    color:#555;
 
 }
 
@@ -325,19 +330,19 @@ h1 {
 
     max-width:900px;
 
-    margin:0 auto;
+    margin:auto;
 
-    padding:40px 30px;
+    padding:45px 30px;
 
     opacity:0;
 
-    transform:translateY(15px);
+    transform:translateY(20px);
 
     transition:
 
-        opacity .35s ease,
+        opacity .5s ease,
 
-        transform .35s ease;
+        transform .5s ease;
 
 }
 
@@ -347,49 +352,7 @@ h1 {
 
     opacity:1;
 
-    transform:translateY(0);
-
-}
-
-
-
-.caption {
-
-    text-align:center;
-
-    font-size:22px;
-
-    line-height:1.7;
-
-    margin:
-
-        0 auto 35px;
-
-    max-width:700px;
-
-    white-space:pre-line;
-
-    color:#444;
-
-}
-
-
-
-.scene img {
-
-    width:100%;
-
-    height:auto;
-
-    aspect-ratio:2 / 3;
-
-    object-fit:cover;
-
-    display:block;
-
-    margin:0 auto;
-
-    border-radius:2px;
+    transform:none;
 
 }
 
@@ -405,49 +368,47 @@ h1 {
 
     font-size:12px;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
 
     color:#8b8578;
 
-    margin-bottom:20px;
+    margin-bottom:25px;
 
 }
 
 
 
-/* ======================
-   SCROLLBAR
-   ====================== */
+.caption {
 
+    max-width:700px;
 
-::-webkit-scrollbar {
+    margin:
 
-    width:14px;
+        0 auto 35px;
 
-}
+    text-align:center;
 
+    white-space:pre-line;
 
-::-webkit-scrollbar-track {
+    font-size:22px;
 
-    background:#ebe7dc;
+    line-height:1.8;
 
-}
-
-
-::-webkit-scrollbar-thumb {
-
-    background:#aaa397;
-
-    border-radius:10px;
-
-    border:3px solid #ebe7dc;
+    color:#444;
 
 }
 
 
-::-webkit-scrollbar-thumb:hover {
 
-    background:#777267;
+.scene img {
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+    border-radius:3px;
 
 }
 
@@ -470,8 +431,6 @@ h1 {
 
     flex-direction:column;
 
-    align-items:center;
-
     gap:12px;
 
     z-index:1000;
@@ -482,9 +441,9 @@ h1 {
 
 .floating-nav button {
 
-    width:45px;
+    width:46px;
 
-    height:45px;
+    height:46px;
 
     border-radius:50%;
 
@@ -492,31 +451,19 @@ h1 {
 
     background:
 
-        rgba(255,255,255,.85);
+        rgba(255,255,255,.9);
 
     color:#333;
 
-    font-size:24px;
+    cursor:pointer;
 
     font-family:
         "Courier New",
         monospace;
 
-    cursor:pointer;
-
-    backdrop-filter:blur(5px);
+    font-size:22px;
 
     transition:.2s;
-
-}
-
-
-
-#jumpButton {
-
-    font-size:14px;
-
-    font-weight:bold;
 
 }
 
@@ -526,7 +473,17 @@ h1 {
 
     background:#e6e1d6;
 
-    transform:scale(1.08);
+    transform:scale(1.1);
+
+}
+
+
+
+#jumpButton {
+
+    font-size:13px;
+
+    font-weight:bold;
 
 }
 
@@ -543,19 +500,19 @@ h1 {
 
     inset:0;
 
-    background:
-
-        rgba(60,50,35,.25);
-
     display:flex;
 
     justify-content:center;
 
     align-items:center;
 
-    z-index:9999;
+    background:
 
-    backdrop-filter:blur(4px);
+        rgba(50,40,25,.3);
+
+    backdrop-filter:blur(5px);
+
+    z-index:9999;
 
 }
 
@@ -563,23 +520,21 @@ h1 {
 
 .age-box {
 
+    width:90%;
+
     max-width:500px;
 
-    margin:20px;
-
-    padding:45px 40px;
+    padding:45px;
 
     text-align:center;
 
-    background:
+    background:#fffdf7;
 
-        rgba(255,253,247,.96);
-
-    border:1px solid #cfc7b8;
+    border:1px solid #ccc4b5;
 
     box-shadow:
 
-        0 0 40px rgba(50,40,20,.25);
+        0 20px 60px rgba(0,0,0,.2);
 
 }
 
@@ -587,17 +542,15 @@ h1 {
 
 .age-box h2 {
 
-    margin:0 0 25px;
-
     font-family:
         "Courier New",
         monospace;
 
     font-size:28px;
 
-    letter-spacing:3px;
+    letter-spacing:4px;
 
-    color:#333;
+    margin-bottom:25px;
 
 }
 
@@ -605,19 +558,19 @@ h1 {
 
 .age-box p {
 
-    color:#555;
-
     font-size:18px;
 
-    line-height:1.6;
+    line-height:1.7;
 
-    margin-bottom:30px;
+    color:#555;
 
 }
 
 
 
 .age-buttons {
+
+    margin-top:30px;
 
     display:flex;
 
@@ -635,9 +588,9 @@ h1 {
 
     background:#333;
 
-    color:#f7f5ed;
+    color:#fff;
 
-    border:1px solid #555;
+    border:none;
 
     cursor:pointer;
 
@@ -660,6 +613,39 @@ h1 {
 
 
 /* ======================
+   SCROLLBAR
+   ====================== */
+
+
+::-webkit-scrollbar {
+
+    width:14px;
+
+}
+
+
+
+::-webkit-scrollbar-track {
+
+    background:#ebe7dc;
+
+}
+
+
+
+::-webkit-scrollbar-thumb {
+
+    background:#aaa397;
+
+    border-radius:10px;
+
+    border:3px solid #ebe7dc;
+
+}
+
+
+
+/* ======================
    MOBILE
    ====================== */
 
@@ -667,102 +653,104 @@ h1 {
 @media(max-width:700px){
 
 
-    h1 {
+h1 {
 
-        font-size:30px;
+    font-size:30px;
 
-        padding-top:35px;
+    padding-top:35px;
 
-    }
-
-
-    .cover {
-
-        padding:20px 15px;
-
-    }
+}
 
 
-    .cover-text h2 {
+.cover {
 
-        font-size:26px;
+    padding:20px 15px;
 
-    }
-
-
-    .cover-text p {
-
-        font-size:17px;
-
-    }
+}
 
 
-    #quests {
+.cover-text h2 {
 
-        padding:20px 15px;
+    font-size:25px;
 
-    }
-
-
-    .quests-title {
-
-        font-size:28px;
-
-    }
+}
 
 
-    #quest-list {
+.cover-text p {
 
-        grid-template-columns:1fr;
+    font-size:17px;
 
-    }
-
-
-    .scene {
-
-        padding:25px 12px;
-
-    }
+}
 
 
-    .caption {
 
-        font-size:18px;
+#quests {
 
-    }
+    padding:20px 15px;
 
-
-    .floating-nav {
-
-        right:15px;
-
-        bottom:15px;
-
-    }
+}
 
 
-    .floating-nav button {
 
-        width:40px;
+#quest-list {
 
-        height:40px;
+    grid-template-columns:1fr;
 
-        font-size:20px;
-
-    }
+}
 
 
-    .age-box {
 
-        padding:35px 20px;
+.scene {
 
-    }
+    padding:
+
+        30px 12px;
+
+}
 
 
-    .age-buttons {
 
-        flex-direction:column;
+.caption {
 
-    }
+    font-size:18px;
+
+}
+
+
+
+.floating-nav {
+
+    right:15px;
+
+    bottom:15px;
+
+}
+
+
+
+.floating-nav button {
+
+    width:40px;
+
+    height:40px;
+
+}
+
+
+
+.age-box {
+
+    padding:35px 20px;
+
+}
+
+
+
+.age-buttons {
+
+    flex-direction:column;
+
+}
+
 
 }
