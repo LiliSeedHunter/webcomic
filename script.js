@@ -21,6 +21,7 @@ const supabaseClient =
 
 
 
+
 // ======================
 // SEED COUNTER
 // ======================
@@ -35,9 +36,11 @@ async function loadSeedTotal(){
         );
 
 
+
     if(!counter){
         return;
     }
+
 
 
 
@@ -47,6 +50,7 @@ async function loadSeedTotal(){
             .select("total")
             .eq("id",1)
             .single();
+
 
 
 
@@ -63,6 +67,7 @@ async function loadSeedTotal(){
 
 
 
+
     counter.textContent =
         data.total ?? 0;
 
@@ -73,7 +78,19 @@ async function loadSeedTotal(){
 
 
 
-async function contributeSeed(){
+
+
+async function contributeSeed(button){
+
+
+
+    if(button){
+
+        button.disabled = true;
+
+    }
+
+
 
 
     const { error } =
@@ -84,6 +101,8 @@ async function contributeSeed(){
 
 
 
+
+
     if(error){
 
         console.error(
@@ -91,16 +110,45 @@ async function contributeSeed(){
             error
         );
 
+
+        if(button){
+
+            button.disabled=false;
+
+        }
+
+
         return;
 
     }
 
 
 
-    loadSeedTotal();
+
+    await loadSeedTotal();
+
+
+
+
+    if(button){
+
+
+        setTimeout(()=>{
+
+
+            button.disabled=false;
+
+
+        },1000);
+
+
+    }
 
 
 }
+
+
+
 
 
 
@@ -174,6 +222,7 @@ async function loadContent(){
 
 
 
+
         const container =
             document.getElementById(
                 "story"
@@ -193,10 +242,7 @@ async function loadContent(){
 
 
 
-
         loadSeedTotal();
-
-
 
 
 
@@ -210,9 +256,7 @@ async function loadContent(){
         if(questContainer){
 
 
-
             quests.forEach(quest=>{
-
 
 
                 const card =
@@ -244,8 +288,11 @@ async function loadContent(){
 
 
                         <h3>
+
                             ${quest.title}
+
                         </h3>
+
 
 
 
@@ -263,6 +310,7 @@ async function loadContent(){
 
 
 
+
                         <div class="quest-description">
 
                             ${quest.description}
@@ -275,7 +323,6 @@ async function loadContent(){
 
 
                 `;
-
 
 
 
@@ -315,13 +362,10 @@ async function loadContent(){
                 );
 
 
-
             });
 
 
         }
-
-
 
 
 
@@ -364,7 +408,6 @@ async function loadContent(){
                 block.innerHTML = `
 
 
-
                     <div class="progress">
 
 
@@ -380,13 +423,11 @@ async function loadContent(){
 
 
 
-
                     <p class="caption">
 
                         ${scene.text}
 
                     </p>
-
 
 
 
@@ -402,10 +443,11 @@ async function loadContent(){
 
 
 
-
                     <button class="seed-button">
 
+
                         🌱 SEED CONTRIBUTION +1
+
 
                     </button>
 
@@ -416,11 +458,10 @@ async function loadContent(){
 
 
 
+
                 container.appendChild(
                     block
                 );
-
-
 
 
 
@@ -446,7 +487,9 @@ async function loadContent(){
 
 
 
+
                         contributeSeed();
+
 
 
 
@@ -458,11 +501,13 @@ async function loadContent(){
                                 false;
 
 
+
                         },1000);
 
 
 
                     };
+
 
 
                 }
@@ -481,10 +526,8 @@ async function loadContent(){
 
 
 
-
-
         // ======================
-        // FADE IN
+        // FADE IN OBSERVER
         // ======================
 
 
@@ -511,7 +554,9 @@ async function loadContent(){
                     });
 
 
+
                 },
+
 
                 {
 
@@ -519,7 +564,9 @@ async function loadContent(){
 
                 }
 
+
             );
+
 
 
 
@@ -541,9 +588,8 @@ async function loadContent(){
 
 
 
-
         // ======================
-        // LAZY LOAD IMAGES
+        // IMAGE LAZY LOAD
         // ======================
 
 
@@ -559,8 +605,10 @@ async function loadContent(){
                         if(entry.isIntersecting){
 
 
+
                             const img =
                                 entry.target;
+
 
 
 
@@ -576,7 +624,11 @@ async function loadContent(){
 
 
 
-                            imageObserver.unobserve(img);
+
+                            imageObserver.unobserve(
+                                img
+                            );
+
 
 
                         }
@@ -588,14 +640,18 @@ async function loadContent(){
 
                 },
 
+
                 {
 
                     rootMargin:
                         "800px 0px"
 
+
                 }
 
+
             );
+
 
 
 
@@ -607,19 +663,12 @@ async function loadContent(){
             .forEach(img=>{
 
 
-                imageObserver.observe(img);
+                imageObserver.observe(
+                    img
+                );
 
 
             });
-
-
-
-
-
-
-
-
-
         // ======================
         // FLOATING NAVIGATION
         // ======================
@@ -654,6 +703,7 @@ async function loadContent(){
 
 
 
+
         let jumpAmount = 1;
 
 
@@ -673,6 +723,13 @@ async function loadContent(){
 
 
 
+
+
+        // ======================
+        // JUMP MULTIPLIER
+        // ======================
+
+
         if(jumpButton){
 
 
@@ -680,6 +737,7 @@ async function loadContent(){
 
 
                 jumpIndex++;
+
 
 
                 if(
@@ -693,13 +751,16 @@ async function loadContent(){
 
 
 
+
                 jumpAmount =
                     jumpValues[jumpIndex];
 
 
 
+
                 jumpButton.textContent =
-                    jumpAmount+"X";
+                    jumpAmount + "X";
+
 
 
             };
@@ -711,6 +772,13 @@ async function loadContent(){
 
 
 
+
+
+
+
+        // ======================
+        // GO TOP
+        // ======================
 
 
         if(topButton){
@@ -721,11 +789,16 @@ async function loadContent(){
 
                 window.scrollTo({
 
+
                     top:0,
+
 
                     behavior:"smooth"
 
+
+
                 });
+
 
 
             };
@@ -739,35 +812,54 @@ async function loadContent(){
 
 
 
+
+
+        // ======================
+        // NEXT SCENE
+        // ======================
+
+
         if(nextButton){
 
 
             nextButton.onclick = ()=>{
 
 
+
                 let current = 0;
 
 
 
-                scenes.forEach((scene,index)=>{
 
 
-                    const rect =
-                        scene.getBoundingClientRect();
+                scenes.forEach(
+                    (scene,index)=>{
+
+
+                        const rect =
+                            scene.getBoundingClientRect();
 
 
 
-                    if(
-                        rect.top <
-                        window.innerHeight / 2
-                    ){
 
-                        current=index;
+                        if(
+                            rect.top <
+                            window.innerHeight / 2
+                        ){
+
+
+                            current = index;
+
+
+                        }
+
+
 
                     }
+                );
 
 
-                });
+
 
 
 
@@ -778,12 +870,22 @@ async function loadContent(){
 
 
 
-                if(target >= scenes.length){
+
+
+                if(
+                    target >=
+                    scenes.length
+                ){
+
 
                     target =
                         scenes.length - 1;
 
+
                 }
+
+
+
 
 
 
@@ -792,9 +894,13 @@ async function loadContent(){
                 scenes[target]
                     .scrollIntoView({
 
+
                         behavior:"smooth",
 
+
                         block:"start"
+
+
 
                     });
 
@@ -803,7 +909,10 @@ async function loadContent(){
             };
 
 
+
         }
+
+
 
 
 
@@ -816,8 +925,11 @@ async function loadContent(){
 
 
         console.error(
+
             "Loading error:",
+
             error
+
         );
 
 
@@ -825,12 +937,6 @@ async function loadContent(){
 
 
 }
-
-
-
-
-
-
 
 // ======================
 // AGE VERIFICATION
@@ -862,14 +968,26 @@ function setupAgeGate(){
 
 
 
+
+
     if(!ageGate){
+
         return;
+
     }
+
+
+
+
 
 
 
     document.body.style.overflow =
         "hidden";
+
+
+
+
 
 
 
@@ -883,12 +1001,15 @@ function setupAgeGate(){
     ){
 
 
+
         ageGate.style.display =
             "none";
 
 
+
         document.body.style.overflow =
             "auto";
+
 
 
     }
@@ -899,10 +1020,13 @@ function setupAgeGate(){
 
 
 
+
     if(enterButton){
 
 
+
         enterButton.onclick = ()=>{
+
 
 
             localStorage.setItem(
@@ -915,8 +1039,12 @@ function setupAgeGate(){
 
 
 
+
+
             ageGate.style.display =
                 "none";
+
+
 
 
 
@@ -924,10 +1052,15 @@ function setupAgeGate(){
                 "auto";
 
 
+
         };
 
 
+
     }
+
+
+
 
 
 
@@ -938,42 +1071,74 @@ function setupAgeGate(){
     if(leaveButton){
 
 
+
         leaveButton.onclick = ()=>{
+
 
 
             document.body.innerHTML = `
 
+
+
                 <div style="
+
                     height:100vh;
+
                     display:flex;
+
                     justify-content:center;
+
                     align-items:center;
+
                     background:#000;
+
                     color:#aaa;
+
                     font-family:Georgia,serif;
+
                     text-align:center;
+
                 ">
+
+
 
                     <h2>
 
+
                         Access denied.<br>
+
                         You must be 18+ to continue.
+
+
 
                     </h2>
 
 
+
                 </div>
 
+
+
             `;
+
 
 
         };
 
 
+
     }
 
 
+
+
+
 }
+
+
+
+
+
 
 
 
@@ -985,6 +1150,8 @@ function setupAgeGate(){
 // ======================
 
 
+
 setupAgeGate();
+
 
 loadContent();
