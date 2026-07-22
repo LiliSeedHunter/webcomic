@@ -1,4 +1,84 @@
 // ======================
+// SUPABASE
+// ======================
+
+const SUPABASE_URL =
+    "https://vihlqgfgrrzyocbtxjmw.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_IQ9vEc6XoFoXeqzAU11qfg_9Qx9rdBk";
+
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+
+// ======================
+// SEED COUNTER
+// ======================
+
+async function loadSeedTotal(){
+
+    const { data, error } =
+        await supabaseClient
+            .from("seed_counter")
+            .select("total")
+            .eq("id",1)
+            .single();
+
+
+    if(error){
+
+        console.error(
+            "Seed load error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("seed-total")
+        .textContent =
+            data.total;
+
+}
+
+
+
+async function contributeSeed(){
+
+
+    const { data, error } =
+        await supabaseClient
+            .rpc(
+                "increment_seed"
+            );
+
+
+    if(error){
+
+        console.error(
+            "Seed increment error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    loadSeedTotal();
+
+}
+// ======================
 // LOAD STORY + QUESTS
 // ======================
 
