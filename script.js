@@ -36,6 +36,19 @@ async function loadSeedTotal(){
         );
 
 
+    const progress =
+        document.getElementById(
+            "seed-progress"
+        );
+
+
+    const bar =
+        document.getElementById(
+            "seed-progress-bar"
+        );
+
+
+
     if(!counter){
         return;
     }
@@ -64,77 +77,47 @@ async function loadSeedTotal(){
 
 
 
-    counter.textContent =
+    const current =
         data.total ?? 0;
 
 
-}
 
-
-async function contributeSeed(button){
-
-
-
-    if(button){
-
-        button.disabled = true;
-
-    }
+    const goal =
+        1000;
 
 
 
-    const { data, error } =
-        await supabaseClient
-            .rpc(
-                "increment_seed"
-            );
-
-
-
-    if(error){
-
-
-        console.error(
-            "Seed increment error:",
-            error
+    const percentage =
+        Math.min(
+            (current / goal) * 100,
+            100
         );
 
 
-        if(button){
 
-            button.disabled=false;
-
-        }
+    counter.textContent =
+        `🌱 ${current} / ${goal} SEEDS AWAKENED`;
 
 
-        return;
 
+    if(progress){
+
+        progress.textContent =
+            `${Math.floor(percentage)}%`;
 
     }
 
 
-    await loadSeedTotal();
 
+    if(bar){
 
-
-    if(button){
-
-
-        setTimeout(()=>{
-
-
-            button.disabled=false;
-
-
-        },1000);
-
+        bar.style.width =
+            percentage + "%";
 
     }
 
 
 }
-
-
 
 
 // ======================
