@@ -1054,3 +1054,40 @@ h1 {
 
 
 }
+
+.seed-icon {
+
+    display:inline-block;
+
+    transition:
+        transform .3s ease;
+
+}
+
+
+
+.seed-button:hover .seed-icon {
+
+
+    transform:
+
+        translateY(-4px)
+
+        rotate(-10deg);
+
+
+}
+
+
+
+.seed-button:active .seed-icon {
+
+
+    transform:
+
+        scale(1.35)
+
+        rotate(12deg);
+
+
+}
