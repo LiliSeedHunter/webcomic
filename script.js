@@ -647,3 +647,421 @@ Promise.all([
     // ======================
 
     loadSeedTotal();
+    // ======================
+    // FADE IN
+    // ======================
+
+
+    const sceneObserver =
+        new IntersectionObserver(
+
+            entries => {
+
+
+                entries.forEach(entry=>{
+
+
+                    if(entry.isIntersecting){
+
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+
+                    }
+
+
+                });
+
+
+            },
+
+            {
+                threshold:0.1
+            }
+
+        );
+
+
+
+    document
+        .querySelectorAll(".scene")
+        .forEach(scene=>{
+
+
+            sceneObserver.observe(scene);
+
+
+        });
+
+
+
+
+
+
+
+
+    // ======================
+    // LAZY LOAD IMMAGINI
+    // ======================
+
+
+    const imageObserver =
+        new IntersectionObserver(
+
+            entries=>{
+
+
+                entries.forEach(entry=>{
+
+
+                    if(entry.isIntersecting){
+
+
+                        const img =
+                            entry.target;
+
+
+                        img.src =
+                            img.dataset.src;
+
+
+
+                        img.removeAttribute(
+                            "data-src"
+                        );
+
+
+
+                        imageObserver.unobserve(img);
+
+
+                    }
+
+
+                });
+
+
+            },
+
+            {
+
+                rootMargin:"800px 0px"
+
+            }
+
+        );
+
+
+
+
+    document
+        .querySelectorAll("img[data-src]")
+        .forEach(img=>{
+
+
+            imageObserver.observe(img);
+
+
+        });
+
+
+
+
+
+
+
+
+
+    // ======================
+    // FLOATING NAVIGATION
+    // ======================
+
+
+    const scenes =
+        document.querySelectorAll(".scene");
+
+
+
+    const topButton =
+        document.getElementById("topButton");
+
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+
+    const jumpButton =
+        document.getElementById("jumpButton");
+
+
+
+    let jumpAmount = 1;
+
+
+
+    const jumpValues =
+        [
+            1,
+            10,
+            50
+        ];
+
+
+
+    let jumpIndex = 0;
+
+
+
+
+
+    if(jumpButton){
+
+
+        jumpButton.onclick = ()=>{
+
+
+            jumpIndex++;
+
+
+            if(jumpIndex >= jumpValues.length){
+
+                jumpIndex = 0;
+
+            }
+
+
+
+            jumpAmount =
+                jumpValues[jumpIndex];
+
+
+
+            jumpButton.textContent =
+                jumpAmount+"X";
+
+
+        };
+
+
+    }
+
+
+
+
+
+
+    if(topButton){
+
+
+        topButton.onclick = ()=>{
+
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"smooth"
+
+            });
+
+
+        };
+
+
+    }
+
+
+
+
+
+
+    if(nextButton){
+
+
+        nextButton.onclick = ()=>{
+
+
+            let current = 0;
+
+
+
+            scenes.forEach((scene,index)=>{
+
+
+                const rect =
+                    scene.getBoundingClientRect();
+
+
+
+                if(
+                    rect.top <
+                    window.innerHeight/2
+                ){
+
+                    current=index;
+
+                }
+
+
+            });
+
+
+
+            let target =
+                current+jumpAmount;
+
+
+
+            if(target >= scenes.length){
+
+                target =
+                    scenes.length-1;
+
+            }
+
+
+
+            scenes[target]
+                .scrollIntoView({
+
+                    behavior:"smooth",
+
+                    block:"start"
+
+                });
+
+
+        };
+
+
+    }
+
+
+
+})
+
+.catch(error=>{
+
+
+    console.error(
+        "Loading error:",
+        error
+    );
+
+
+});
+
+// ======================
+// AGE VERIFICATION
+// ======================
+
+
+const ageGate =
+    document.getElementById("age-gate");
+
+
+const enterButton =
+    document.getElementById("enterButton");
+
+
+const leaveButton =
+    document.getElementById("leaveButton");
+
+
+
+if(ageGate){
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+
+    if(
+        localStorage.getItem("ageAccepted")
+        ===
+        "true"
+    ){
+
+
+        ageGate.style.display =
+            "none";
+
+
+        document.body.style.overflow =
+            "auto";
+
+
+    }
+
+
+
+    if(enterButton){
+
+
+        enterButton.onclick = ()=>{
+
+
+            localStorage.setItem(
+                "ageAccepted",
+                "true"
+            );
+
+
+            ageGate.style.display =
+                "none";
+
+
+            document.body.style.overflow =
+                "auto";
+
+
+        };
+
+
+    }
+
+
+
+
+
+
+    if(leaveButton){
+
+
+        leaveButton.onclick = ()=>{
+
+
+            document.body.innerHTML = `
+
+                <div style="
+                    height:100vh;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    background:#000;
+                    color:#aaa;
+                    font-family:Georgia,serif;
+                    text-align:center;
+                ">
+
+                    <h2>
+                        Access denied.<br>
+                        You must be 18+ to continue.
+                    </h2>
+
+
+                </div>
+
+            `;
+
+
+        };
+
+
+    }
+
+
+}
