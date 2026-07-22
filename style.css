@@ -1,12 +1,14 @@
-/* GLOBAL */
+/* ======================
+   GLOBAL
+   ====================== */
 
 body {
 
-    background: #050505;
+    background:#050505;
 
-    color: #e8e8e8;
+    color:#e8e8e8;
 
-    margin: 0;
+    margin:0;
 
     font-family:
         "Georgia",
@@ -17,346 +19,43 @@ body {
 
 
 
-/* TITLE */
+/* ======================
+   TITLE
+   ====================== */
 
 h1 {
 
-    text-align: center;
+    text-align:center;
 
-    font-size: 42px;
+    font-size:42px;
 
-    font-weight: normal;
+    font-weight:normal;
 
-    letter-spacing: 2px;
+    letter-spacing:2px;
 
-    padding: 60px 20px 40px;
+    padding:60px 20px 40px;
 
-    margin: 0;
-
-}
-
-
-
-/* STORY CONTAINER */
-
-#story {
-
-    width: 100%;
+    margin:0;
 
 }
 
 
 
-/* SINGLE SCENE */
-
-.scene {
-
-    max-width: 900px;
-
-    margin: 0 auto;
-
-    padding: 40px 30px;
-
-    opacity: 0;
-
-    transform: translateY(15px);
-
-    transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
-
-}
-
-
-
-.scene.visible {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-}
-
-
-
-/* TEXT */
-
-.caption {
-
-    text-align: center;
-
-    font-size: 22px;
-
-    line-height: 1.7;
-
-    margin:
-        0 auto
-        35px;
-
-    max-width: 700px;
-
-    white-space: pre-line;
-
-    color: #dddddd;
-
-}
-
-
-
-/* IMAGE */
-
-.scene img {
-
-    width: 100%;
-
-    height: auto;
-
-    aspect-ratio: 2 / 3;
-
-    object-fit: cover;
-
-    display: block;
-
-    margin: 0 auto;
-
-    border-radius: 2px;
-
-}
-
-
-
-/* LOG COUNTER */
-
-.progress {
-
-    text-align: center;
-
-    font-family:
-        "Courier New",
-        monospace;
-
-    font-size: 12px;
-
-    letter-spacing: 2px;
-
-    color: #777;
-
-    margin-bottom: 20px;
-
-}
-
-
-
-/* CUSTOM SCROLLBAR */
-
-::-webkit-scrollbar {
-
-    width: 18px;
-
-}
-
-
-
-::-webkit-scrollbar-track {
-
-    background: #111;
-
-}
-
-
-
-::-webkit-scrollbar-thumb {
-
-    background: #444;
-
-    border-radius: 10px;
-
-    border: 4px solid #111;
-
-}
-
-
-
-::-webkit-scrollbar-thumb:hover {
-
-    background: #777;
-
-}
-
-
-
-
-
-/* FLOATING NAVIGATION */
-
-.floating-nav {
-
-    position: fixed;
-
-    right: 25px;
-
-    bottom: 25px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 12px;
-
-    z-index: 1000;
-
-}
-
-
-
-/* BUTTONS */
-
-.floating-nav button {
-
-    width: 45px;
-
-    height: 45px;
-
-    border-radius: 50%;
-
-    border:
-
-        1px solid #555;
-
-    background:
-
-        rgba(20,20,20,0.85);
-
-    color: white;
-
-    font-size: 24px;
-
-    font-family:
-        "Courier New",
-        monospace;
-
-    cursor: pointer;
-
-    backdrop-filter: blur(5px);
-
-    transition:
-
-        background 0.2s ease,
-
-        transform 0.2s ease;
-
-}
-
-
-
-/* JUMP MULTIPLIER BUTTON */
-
-#jumpButton {
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-}
-
-
-
-.floating-nav button:hover {
-
-    background: #333;
-
-    transform: scale(1.08);
-
-}
-
-
-
-/* MOBILE */
-
-@media (max-width:700px){
-
-
-    h1 {
-
-        font-size: 30px;
-
-        padding-top: 35px;
-
-    }
-
-
-
-    .scene {
-
-        padding:
-            25px
-            12px;
-
-    }
-
-
-
-    .caption {
-
-        font-size: 18px;
-
-        line-height: 1.6;
-
-        margin-bottom: 25px;
-
-    }
-
-
-
-    .floating-nav {
-
-        right: 15px;
-
-        bottom: 15px;
-
-    }
-
-
-
-    .floating-nav button {
-
-        width: 40px;
-
-        height: 40px;
-
-        font-size: 20px;
-
-    }
-
-
-
-    #jumpButton {
-
-        font-size: 12px;
-
-    }
-
-
-}
-
-/* COVER */
+/* ======================
+   COVER
+   ====================== */
 
 .cover {
 
-    max-width: 900px;
+    max-width:900px;
 
-    margin: 0 auto 80px;
+    margin:0 auto 80px;
 
-    padding: 20px 30px;
+    padding:20px 30px;
 
     text-align:center;
 
 }
-
 
 
 .cover img {
@@ -421,12 +120,9 @@ h1 {
 
     color:white;
 
-    border:
-
-        1px solid #555;
+    border:1px solid #555;
 
     font-family:
-
         "Courier New",
         monospace;
 
@@ -434,7 +130,7 @@ h1 {
 
     cursor:pointer;
 
-    transition:0.2s;
+    transition:.2s;
 
 }
 
@@ -444,11 +140,522 @@ h1 {
 
     background:#444;
 
+    transform:scale(1.05);
+
 }
 
 
 
+/* ======================
+   QUESTS
+   ====================== */
+
+#quests {
+
+    max-width:1200px;
+
+    margin:0 auto 80px;
+
+    padding:20px 30px;
+
+}
+
+
+
+.quests-title {
+
+    text-align:center;
+
+    font-size:34px;
+
+    font-weight:normal;
+
+    letter-spacing:4px;
+
+    margin-bottom:50px;
+
+}
+
+
+
+#quest-list {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(360px,1fr)
+        );
+
+    gap:40px;
+
+}
+
+
+
+.quest-card {
+
+    background:#101010;
+
+    border:1px solid #333;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:
+
+        transform .25s ease,
+
+        border-color .25s ease,
+
+        box-shadow .25s ease;
+
+}
+
+
+
+.quest-card:hover {
+
+    transform:translateY(-6px);
+
+    border-color:#888;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.5);
+
+}
+
+
+
+/* FIX: immagini Quest NON tagliate */
+
+.quest-card img {
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+}
+
+
+
+.quest-info {
+
+    padding:22px;
+
+}
+
+
+
+.quest-info h3 {
+
+    margin:0;
+
+    font-size:28px;
+
+    font-weight:normal;
+
+    letter-spacing:1px;
+
+}
+
+
+
+.quest-range {
+
+    margin-top:12px;
+
+    color:#888;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:14px;
+
+    letter-spacing:2px;
+
+}
+
+
+
+.quest-description {
+
+    margin-top:18px;
+
+    color:#c8c8c8;
+
+    line-height:1.6;
+
+    font-size:17px;
+
+}
+
+
+
+/* ======================
+   STORY
+   ====================== */
+
+
+#story {
+
+    width:100%;
+
+}
+
+
+
+.scene {
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    padding:40px 30px;
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    transition:
+
+        opacity .35s ease,
+
+        transform .35s ease;
+
+}
+
+
+
+.scene.visible {
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+
+.caption {
+
+    text-align:center;
+
+    font-size:22px;
+
+    line-height:1.7;
+
+    margin:
+        0 auto 35px;
+
+    max-width:700px;
+
+    white-space:pre-line;
+
+    color:#ddd;
+
+}
+
+
+
+.scene img {
+
+    width:100%;
+
+    height:auto;
+
+    aspect-ratio:2 / 3;
+
+    object-fit:cover;
+
+    display:block;
+
+    margin:0 auto;
+
+    border-radius:2px;
+
+}
+
+
+
+.progress {
+
+    text-align:center;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    color:#777;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* ======================
+   SCROLLBAR
+   ====================== */
+
+
+::-webkit-scrollbar {
+
+    width:18px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background:#111;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background:#444;
+
+    border-radius:10px;
+
+    border:4px solid #111;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background:#777;
+
+}
+
+
+
+/* ======================
+   FLOATING NAV
+   ====================== */
+
+
+.floating-nav {
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:12px;
+
+    z-index:1000;
+
+}
+
+
+
+.floating-nav button {
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    border:1px solid #555;
+
+    background:
+        rgba(20,20,20,.85);
+
+    color:white;
+
+    font-size:24px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(5px);
+
+    transition:.2s;
+
+}
+
+
+
+#jumpButton {
+
+    font-size:14px;
+
+    font-weight:bold;
+
+}
+
+
+
+.floating-nav button:hover {
+
+    background:#333;
+
+    transform:scale(1.08);
+
+}
+
+
+
+/* ======================
+   AGE GATE
+   ====================== */
+
+
+#age-gate {
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.5);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+    backdrop-filter:blur(4px);
+
+}
+
+
+
+.age-box {
+
+    max-width:500px;
+
+    margin:20px;
+
+    padding:45px 40px;
+
+    text-align:center;
+
+    background:
+        rgba(10,10,10,.92);
+
+    border:1px solid #555;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,.8);
+
+}
+
+
+
+.age-box h2 {
+
+    margin:0 0 25px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:28px;
+
+    letter-spacing:3px;
+
+}
+
+
+
+.age-box p {
+
+    color:#ccc;
+
+    font-size:18px;
+
+    line-height:1.6;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.age-buttons {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+
+
+.age-buttons button {
+
+    padding:12px 35px;
+
+    background:#222;
+
+    color:white;
+
+    border:1px solid #666;
+
+    cursor:pointer;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    letter-spacing:2px;
+
+}
+
+
+
+.age-buttons button:hover {
+
+    background:#444;
+
+}
+
+
+
+/* ======================
+   MOBILE
+   ====================== */
+
+
 @media(max-width:700px){
+
+
+    h1 {
+
+        font-size:30px;
+
+        padding-top:35px;
+
+    }
 
 
     .cover {
@@ -471,416 +678,72 @@ h1 {
 
     }
 
-}
 
-/* ======================
-   AGE GATE
-   ====================== */
-
-
-#age-gate {
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-
-        rgba(0,0,0,0.5);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    z-index: 9999;
-
-    backdrop-filter: blur(4px);
-
-}
-
-
-
-
-.age-box {
-
-    max-width: 500px;
-
-    margin: 20px;
-
-    padding: 45px 40px;
-
-    text-align: center;
-
-
-    background:
-
-        rgba(10,10,10,0.92);
-
-
-    border:
-
-        1px solid #555;
-
-
-    box-shadow:
-
-        0 0 40px rgba(0,0,0,0.8);
-
-}
-
-
-
-
-
-.age-box h2 {
-
-    margin:0 0 25px;
-
-
-    font-family:
-
-        "Courier New",
-        monospace;
-
-
-    font-size:28px;
-
-
-    letter-spacing:3px;
-
-
-    font-weight:normal;
-
-}
-
-
-
-
-
-.age-box p {
-
-    color:#ccc;
-
-
-    font-size:18px;
-
-
-    line-height:1.6;
-
-
-    margin-bottom:30px;
-
-}
-
-
-
-
-
-.age-buttons {
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    gap:20px;
-
-}
-
-
-
-
-
-.age-buttons button {
-
-
-    padding:
-
-        12px 35px;
-
-
-    background:#222;
-
-
-    color:white;
-
-
-    border:
-
-        1px solid #666;
-
-
-    cursor:pointer;
-
-
-    font-family:
-
-        "Courier New",
-        monospace;
-
-
-    letter-spacing:2px;
-
-
-    transition:
-
-        background 0.2s ease,
-
-        transform 0.2s ease;
-
-}
-
-
-
-
-
-.age-buttons button:hover {
-
-
-    background:#444;
-
-
-    transform:scale(1.05);
-
-
-}
-
-
-
-
-
-@media(max-width:700px){
-
-
-    .age-box {
-
-
-        padding:
-
-            35px 20px;
-
-
-    }
-
-
-
-    .age-box h2 {
-
-
-        font-size:22px;
-
-
-    }
-
-
-
-    .age-box p {
-
-
-        font-size:16px;
-
-
-    }
-
-
-
-    .age-buttons {
-
-
-        flex-direction:column;
-
-
-    }
-
-
-
-}
-
-/* ======================
-   QUESTS
-   ====================== */
-
-#quests {
-
-    max-width: 1200px;
-
-    margin: 0 auto 80px;
-
-    padding: 20px 30px;
-
-}
-
-
-
-.quests-title {
-
-    text-align: center;
-
-    font-size: 34px;
-
-    font-weight: normal;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 50px;
-
-}
-
-
-
-#quest-list {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-
-    gap: 40px;
-
-}
-
-
-
-.quest-card {
-
-    background: #101010;
-
-    border: 1px solid #333;
-
-    overflow: hidden;
-
-    cursor: pointer;
-
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
-
-}
-
-
-
-.quest-card:hover {
-
-    transform: translateY(-6px);
-
-    border-color: #777;
-
-    box-shadow: 0 15px 35px rgba(0,0,0,.5);
-
-}
-
-
-
-.quest-card img {
-
-    width: 100%;
-
-    aspect-ratio: 16 / 9;
-
-    object-fit: cover;
-
-    display: block;
-
-}
-
-
-
-.quest-info {
-
-    padding: 22px;
-
-}
-
-
-
-.quest-info h3 {
-
-    margin: 0;
-
-    font-size: 28px;
-
-    font-weight: normal;
-
-    letter-spacing: 1px;
-
-}
-
-
-
-.quest-range {
-
-    margin-top: 12px;
-
-    color: #888;
-
-    font-family:
-        "Courier New",
-        monospace;
-
-    font-size: 14px;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-.quest-description {
-
-    margin-top: 18px;
-
-    color: #c8c8c8;
-
-    line-height: 1.6;
-
-    font-size: 17px;
-
-}
-
-
-
-@media (max-width:700px){
-
-    #quests{
+    #quests {
 
         padding:20px 15px;
 
     }
 
-    .quests-title{
+
+    .quests-title {
 
         font-size:28px;
 
-        margin-bottom:35px;
-
     }
 
-    #quest-list{
+
+    #quest-list {
 
         grid-template-columns:1fr;
 
-        gap:30px;
+    }
+
+
+    .scene {
+
+        padding:25px 12px;
 
     }
 
-    .quest-info{
 
-        padding:18px;
+    .caption {
 
-    }
-
-    .quest-info h3{
-
-        font-size:24px;
+        font-size:18px;
 
     }
 
-    .quest-description{
 
-        font-size:16px;
+    .floating-nav {
+
+        right:15px;
+
+        bottom:15px;
+
+    }
+
+
+    .floating-nav button {
+
+        width:40px;
+
+        height:40px;
+
+        font-size:20px;
+
+    }
+
+
+    .age-box {
+
+        padding:35px 20px;
+
+    }
+
+
+    .age-buttons {
+
+        flex-direction:column;
 
     }
 
