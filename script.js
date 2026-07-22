@@ -477,40 +477,16 @@ async function loadContent(){
                 if(seedButton){
 
 
-
                     seedButton.onclick = ()=>{
 
 
-
-                        seedButton.disabled =
-                            true;
+                    contributeSeed(seedButton);
 
 
+              };
 
 
-                        contributeSeed();
-
-
-
-
-
-                        setTimeout(()=>{
-
-
-                            seedButton.disabled =
-                                false;
-
-
-
-                        },1000);
-
-
-
-                    };
-
-
-
-                }
+        }
 
 
 
