@@ -36,21 +36,27 @@ async function loadSeedTotal(){
         );
 
 
-
     if(!counter){
+        console.log("SEED COUNTER ELEMENT NOT FOUND");
         return;
     }
-
 
 
 
     const { data, error } =
         await supabaseClient
             .from("seed_counter")
-            .select("total")
+            .select("*")
             .eq("id",1)
             .single();
 
+
+
+    console.log(
+        "SEED DATABASE:",
+        data,
+        error
+    );
 
 
 
@@ -64,7 +70,6 @@ async function loadSeedTotal(){
         return;
 
     }
-
 
 
 
