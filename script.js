@@ -1,17 +1,85 @@
-fetch("story.json")
+Promise.all([
 
-.then(response => response.json())
+    fetch("story.json").then(r => r.json()),
 
-.then(story => {
+    fetch("quests.json").then(r => r.json())
+
+])
+
+.then(([story, quests]) => {
 
 
-    const container =
-        document.getElementById("story");
+    const questContainer =
+    document.getElementById("quest-list");
 
 
     const total = story.length;
 
+// ======================
+// CREA LE QUEST
+// ======================
 
+quests.forEach(quest => {
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "quest-card";
+
+    card.innerHTML = `
+
+        <img
+            src="images/${quest.cover}"
+            alt="${quest.title}"
+        >
+
+        <div class="quest-info">
+
+            <h3>
+                ${quest.title}
+            </h3>
+
+            <div class="quest-range">
+
+                LOG ${String(quest.start).padStart(3,"0")}
+                —
+                ${String(quest.end).padStart(3,"0")}
+
+            </div>
+
+            <div class="quest-description">
+
+                ${quest.description}
+
+            </div>
+
+        </div>
+
+    `;
+
+    card.onclick = () => {
+
+        const scene =
+            document.querySelectorAll(".scene")[quest.start - 1];
+
+        if(scene){
+
+            scene.scrollIntoView({
+
+                behavior:"smooth",
+
+                block:"start"
+
+            });
+
+        }
+
+    };
+
+    questContainer.appendChild(card);
+
+});
 
     // CREA LE SCENE
 
@@ -48,7 +116,8 @@ fetch("story.json")
 
 
         container.appendChild(block);
-
+        block.id =
+            `log-${index+1}`;
 
     });
 
