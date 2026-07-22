@@ -643,7 +643,191 @@ h1 {
 
 }
 
+/* ======================
+   SEED OBJECTIVE
+   ====================== */
 
+
+.seed-counter-box {
+
+    max-width:700px;
+
+    margin:40px auto 70px;
+
+    padding:30px;
+
+    text-align:center;
+
+    background:
+
+        rgba(255,255,255,.7);
+
+    border:
+
+        1px solid #cdb7e8;
+
+    box-shadow:
+
+        0 10px 30px rgba(130,90,170,.15);
+
+}
+
+
+
+#seed-total {
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:22px;
+
+    letter-spacing:2px;
+
+    color:#7952a8;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+.seed-bar {
+
+    width:100%;
+
+    height:18px;
+
+    background:#ebe7dc;
+
+    border:
+
+        1px solid #d7cce8;
+
+    overflow:hidden;
+
+}
+
+
+
+
+
+#seed-progress-bar {
+
+    height:100%;
+
+    width:0%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            #b993d6,
+
+            #8f6bb8
+
+        );
+
+    transition:
+
+        width .8s ease;
+
+}
+
+
+
+
+
+#seed-progress {
+
+    margin-top:12px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    color:#8f6bb8;
+
+    font-size:14px;
+
+    letter-spacing:2px;
+
+}
+
+
+
+
+
+
+/* ======================
+   REGISTER OVERFLOW BUTTON
+   ====================== */
+
+
+.seed-button {
+
+    display:block;
+
+    margin:35px auto 10px;
+
+    padding:14px 30px;
+
+    background:
+
+        rgba(185,147,214,.15);
+
+    color:#7952a8;
+
+    border:
+
+        1px solid #b993d6;
+
+    font-family:
+
+        "Courier New",
+        monospace;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+
+
+
+
+.seed-button:hover {
+
+    background:#b993d6;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 8px 20px rgba(140,90,190,.25);
+
+}
+
+
+
+
+
+.seed-button:disabled {
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
 
 /* ======================
    MOBILE
