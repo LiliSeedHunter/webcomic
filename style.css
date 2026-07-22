@@ -1053,25 +1053,27 @@ h1 {
 
 .seed-button {
 
-    width:90%;
+    width:60%;
 
-    padding:9px 16px;
+    padding:6px 10px;
 
-    margin:25px auto 5px;
+    margin:20px auto 5px;
 
-    font-size:12px;
+    font-size:11px;
 
     letter-spacing:1px;
 
-}
+    gap:5px;
 
+}
 
 
 .seed-icon {
 
-    font-size:15px;
+    font-size:13px;
 
 }
+   
 }
 
 .seed-icon {
