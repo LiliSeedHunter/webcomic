@@ -582,89 +582,88 @@ card.onclick = ()=>{
 
 
 
+// ======================
+// IMAGE LAZY LOAD
+// ======================
 
 
-        // ======================
-        // IMAGE LAZY LOAD
-        // ======================
+const imageObserver =
+    new IntersectionObserver(
+
+        entries=>{
 
 
-        const imageObserver =
-            new IntersectionObserver(
-
-                entries=>{
+            entries.forEach(entry=>{
 
 
-                    entries.forEach(entry=>{
+                if(entry.isIntersecting){
 
 
-                        if(entry.isIntersecting){
-
-
-
-                            const img =
-                                entry.target;
+                    const img =
+                        entry.target;
 
 
 
-
-                            img.src =
-                                img.dataset.src;
+                    if(img.dataset.src){
 
 
+                        img.src =
+                            img.dataset.src;
 
 
-                            img.removeAttribute(
-                                "data-src"
-                            );
+                        img.removeAttribute(
+                            "data-src"
+                        );
 
 
-
-
-                            imageObserver.unobserve(
-                                img
-                            );
+                    }
 
 
 
-                        }
-
-
-                    });
-
-
-
-                },
-
-
-                {
-
-                    rootMargin:
-                        "800px 0px"
+                    imageObserver.unobserve(
+                        img
+                    );
 
 
                 }
 
 
-            );
-
-
-
-
-
-        document
-            .querySelectorAll(
-                "img[data-src]"
-            )
-            .forEach(img=>{
-
-
-                imageObserver.observe(
-                    img
-                );
-
-
             });
+
+
+
+        },
+
+
+        {
+
+            rootMargin:
+                "200px 0px"
+
+        }
+
+
+    );
+
+
+
+
+
+document
+    .querySelectorAll(
+        "img[data-src]"
+    )
+    .forEach(img=>{
+
+
+        imageObserver.observe(
+            img
+        );
+
+
+    });
+
+        
         // ======================
         // FLOATING NAVIGATION
         // ======================
