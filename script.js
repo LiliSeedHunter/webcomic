@@ -327,32 +327,52 @@ async function loadContent(){
 
 
 
-                card.onclick = ()=>{
+card.onclick = ()=>{
 
 
-                    const target =
-                        document.getElementById(
-                            `log-${quest.start}`
-                        );
+    const target =
+        document.getElementById(
+            `log-${quest.start}`
+        );
 
 
-
-                    if(target){
-
-
-                        target.scrollIntoView({
-
-                            behavior:"smooth",
-
-                            block:"start"
-
-                        });
+    if(target){
 
 
-                    }
+        target.scrollIntoView({
+
+            behavior:"instant",
+
+            block:"start"
+
+        });
 
 
-                };
+        const img =
+            target.querySelector(
+                "img[data-src]"
+            );
+
+
+        if(img){
+
+
+            img.src =
+                img.dataset.src;
+
+
+            img.removeAttribute(
+                "data-src"
+            );
+
+
+        }
+
+
+    }
+
+
+};
 
 
 
