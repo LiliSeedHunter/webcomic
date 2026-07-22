@@ -761,8 +761,6 @@ h1 {
 
 
 
-
-
 /* ======================
    REGISTER OVERFLOW BUTTON
    ====================== */
@@ -770,32 +768,75 @@ h1 {
 
 .seed-button {
 
-    display:block;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
 
     margin:35px auto 10px;
 
-    padding:14px 30px;
+
+    padding:14px 34px;
+
 
     background:
 
-        rgba(185,147,214,.15);
+        linear-gradient(
+
+            135deg,
+
+            rgba(185,147,214,.18),
+
+            rgba(143,107,184,.12)
+
+        );
+
 
     color:#7952a8;
+
 
     border:
 
         1px solid #b993d6;
+
+
+    border-radius:999px;
+
 
     font-family:
 
         "Courier New",
         monospace;
 
+
+    font-size:15px;
+
+
     letter-spacing:2px;
+
 
     cursor:pointer;
 
-    transition:.25s;
+
+    transition:
+
+        transform .25s ease,
+
+        box-shadow .25s ease,
+
+        background .25s ease,
+
+        border-color .25s ease;
+
+
+    box-shadow:
+
+        0 4px 15px rgba(140,90,190,.12);
+
 
 }
 
@@ -805,15 +846,51 @@ h1 {
 
 .seed-button:hover {
 
-    background:#b993d6;
 
-    color:white;
+    transform:
 
-    transform:translateY(-3px);
+        translateY(-3px);
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            rgba(185,147,214,.35),
+
+            rgba(143,107,184,.25)
+
+        );
+
+
+    border-color:#8f6bb8;
+
 
     box-shadow:
 
-        0 8px 20px rgba(140,90,190,.25);
+        0 10px 25px rgba(140,90,190,.25);
+
+
+}
+
+
+
+
+
+.seed-button:active {
+
+
+    transform:
+
+        scale(.94);
+
+
+    box-shadow:
+
+        0 3px 10px rgba(140,90,190,.2);
+
 
 }
 
@@ -823,11 +900,17 @@ h1 {
 
 .seed-button:disabled {
 
-    opacity:.5;
+
+    opacity:.55;
 
     cursor:not-allowed;
 
+
+    transform:none;
+
+
 }
+
 
 /* ======================
    MOBILE
