@@ -865,18 +865,42 @@ document
 
 
 
-                scenes[target]
-                    .scrollIntoView({
+scenes[target]
+    .scrollIntoView({
 
 
-                        behavior:"smooth",
+        behavior:
+            jumpAmount === 1
+                ? "smooth"
+                : "instant",
 
 
-                        block:"start"
+        block:"start"
 
 
 
-                    });
+    });
+
+
+const img =
+    scenes[target].querySelector(
+        "img[data-src]"
+    );
+
+
+if(img){
+
+
+    img.src =
+        img.dataset.src;
+
+
+    img.removeAttribute(
+        "data-src"
+    );
+
+
+}
 
 
 
