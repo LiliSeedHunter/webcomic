@@ -698,3 +698,190 @@ h1 {
 
 
 }
+
+/* ======================
+   QUESTS
+   ====================== */
+
+#quests {
+
+    max-width: 1200px;
+
+    margin: 0 auto 80px;
+
+    padding: 20px 30px;
+
+}
+
+
+
+.quests-title {
+
+    text-align: center;
+
+    font-size: 34px;
+
+    font-weight: normal;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 50px;
+
+}
+
+
+
+#quest-list {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+
+    gap: 40px;
+
+}
+
+
+
+.quest-card {
+
+    background: #101010;
+
+    border: 1px solid #333;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+
+.quest-card:hover {
+
+    transform: translateY(-6px);
+
+    border-color: #777;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.5);
+
+}
+
+
+
+.quest-card img {
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+
+.quest-info {
+
+    padding: 22px;
+
+}
+
+
+
+.quest-info h3 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: normal;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+.quest-range {
+
+    margin-top: 12px;
+
+    color: #888;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+}
+
+
+
+.quest-description {
+
+    margin-top: 18px;
+
+    color: #c8c8c8;
+
+    line-height: 1.6;
+
+    font-size: 17px;
+
+}
+
+
+
+@media (max-width:700px){
+
+    #quests{
+
+        padding:20px 15px;
+
+    }
+
+    .quests-title{
+
+        font-size:28px;
+
+        margin-bottom:35px;
+
+    }
+
+    #quest-list{
+
+        grid-template-columns:1fr;
+
+        gap:30px;
+
+    }
+
+    .quest-info{
+
+        padding:18px;
+
+    }
+
+    .quest-info h3{
+
+        font-size:24px;
+
+    }
+
+    .quest-description{
+
+        font-size:16px;
+
+    }
+
+}
