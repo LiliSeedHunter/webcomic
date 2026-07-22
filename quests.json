@@ -1,14 +1,16 @@
 [
     {
-        "title": "Executive Overload",
-        "cover": "quest1.webp",
-        "start": 1,
-        "end": 102
+        "title":"Executive Overload",
+        "cover":"quest1.webp",
+        "start":1,
+        "end":102,
+        "description":"Lili enters a corporate world where collecting SEED turns into an unexpectedly demanding internship."
     },
     {
-        "title": "Into the Unknown",
-        "cover": "quest2.webp",
-        "start": 103,
-        "end": 203
+        "title":"Deep Sea Draining",
+        "cover":"quest2.webp",
+        "start":103,
+        "end":203,
+        "description":"Lili descends into an abyssal trench where surviving the currents turns into an insatiable, overwhelming deep-sea draining."
     }
 ]
