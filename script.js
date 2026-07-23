@@ -505,7 +505,7 @@ card.onclick = ()=>{
 
                             <span class="seed-icon">🌱</span>
 
-                            Add Your Load 💦 +1
+                            Add Your Load +1
 
 
                     </button>
@@ -552,7 +552,7 @@ if(seedButton){
 
 
             seedButton.innerHTML =
-                '<span class="seed-icon">🌱</span> Add Your Load 💦+1';
+                '<span class="seed-icon">🌱</span> Add Your Load +1';
 
 
 
