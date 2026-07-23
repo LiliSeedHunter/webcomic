@@ -810,10 +810,6 @@ if(nextButton){
         // ======================
 
 
-        const scenes =
-            document.querySelectorAll(
-                ".scene"
-            );
 
 
 
