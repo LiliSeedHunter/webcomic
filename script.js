@@ -668,7 +668,7 @@ const imageObserver =
         {
 
             rootMargin:
-                "800px 0px"
+                "300px 0px"
 
         }
 
