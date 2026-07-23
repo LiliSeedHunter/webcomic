@@ -23,6 +23,19 @@ const supabaseClient =
 
 
 // ======================
+// GLOBAL IMAGE CONTROL
+// ======================
+
+
+let storyScenes = [];
+
+let currentJumpTarget = null;
+
+
+
+
+
+// ======================
 // SEED COUNTER
 // ======================
 
@@ -33,18 +46,6 @@ async function loadSeedTotal(){
     const counter =
         document.getElementById(
             "seed-total"
-        );
-
-
-    const progress =
-        document.getElementById(
-            "seed-progress"
-        );
-
-
-    const bar =
-        document.getElementById(
-            "seed-progress-bar"
         );
 
 
@@ -82,12 +83,20 @@ async function loadSeedTotal(){
 
 
 
-counter.textContent =
-    `${current} 🌱 GLOBAL SEED RESERVE`;
+    counter.textContent =
+        `${current} 🌱 GLOBAL SEED RESERVE`;
+
+
 
 }
 
+
+
+
+
+
 async function contributeSeed(button){
+
 
 
     if(button){
@@ -102,11 +111,15 @@ async function contributeSeed(button){
 
 
 
+
+
     const { error } =
         await supabaseClient
             .rpc(
                 "increment_seed"
             );
+
+
 
 
 
@@ -117,6 +130,7 @@ async function contributeSeed(button){
             "Seed increment error:",
             error
         );
+
 
 
         if(button){
@@ -137,7 +151,11 @@ async function contributeSeed(button){
 
 
 
+
+
     await loadSeedTotal();
+
+
 
 
 
@@ -163,212 +181,104 @@ async function contributeSeed(button){
 
 }
 
+
+
+
+
+
 // ======================
-// LOAD STORY + QUESTS
+// IMAGE LOADING SYSTEM
 // ======================
 
 
-async function loadContent(){
+function loadImage(index){
 
 
-    try{
+    const scene =
+        storyScenes[index];
 
 
-        const [
 
-            storyResponse,
+    if(!scene){
+        return;
+    }
 
-            questsResponse
 
-        ] = await Promise.all([
 
-
-            fetch("story.json"),
-
-
-            fetch("quests.json")
-
-
-        ]);
-
-
-
-
-        if(!storyResponse.ok){
-
-            throw new Error(
-                "story.json loading failed"
-            );
-
-        }
-
-
-
-
-        if(!questsResponse.ok){
-
-            throw new Error(
-                "quests.json loading failed"
-            );
-
-        }
-
-
-
-
-        const story =
-            await storyResponse.json();
-
-
-
-        const quests =
-            await questsResponse.json();
-
-
-
-
-
-        const container =
-            document.getElementById(
-                "story"
-            );
-
-
-
-        const questContainer =
-            document.getElementById(
-                "quest-list"
-            );
-
-
-
-        const total =
-            story.length;
-
-
-
-        loadSeedTotal();
-
-
-
-
-
-        // ======================
-        // CREATE QUESTS
-        // ======================
-
-
-        if(questContainer){
-
-
-            quests.forEach(quest=>{
-
-
-                const card =
-                    document.createElement(
-                        "div"
-                    );
-
-
-
-                card.className =
-                    "quest-card";
-
-
-
-                card.innerHTML = `
-
-
-                    <img
-
-                        src="images/${quest.cover}"
-
-                        alt="${quest.title}"
-
-                    >
-
-
-
-                    <div class="quest-info">
-
-
-                        <h3>
-
-                            ${quest.title}
-
-                        </h3>
-
-
-
-
-                        <div class="quest-range">
-
-
-                            LOG ${String(quest.start).padStart(3,"0")}
-
-                            —
-
-                            LOG ${String(quest.end).padStart(3,"0")}
-
-
-                        </div>
-
-
-
-
-                        <div class="quest-description">
-
-                            ${quest.description}
-
-                        </div>
-
-
-
-                    </div>
-
-
-                `;
-
-
-
-
-card.onclick = ()=>{
-
-
-    const target =
-        document.getElementById(
-            `log-${quest.start}`
+    const img =
+        scene.querySelector(
+            "img"
         );
 
 
-    if(target){
+
+    if(
+        img &&
+        img.dataset.src
+    ){
 
 
-        target.scrollIntoView({
+        img.src =
+            img.dataset.src;
 
-            behavior:"instant",
 
-            block:"start"
+        img.removeAttribute(
+            "data-src"
+        );
 
-        });
+
+    }
+
+
+}
+
+
+
+
+
+
+
+function preloadNextImages(index, amount = 3){
+
+
+
+    for(
+        let i = index + 1;
+        i <= index + amount;
+        i++
+    ){
+
+
+        const scene =
+            storyScenes[i];
+
+
+
+        if(!scene){
+            continue;
+        }
+
 
 
         const img =
-            target.querySelector(
-                "img[data-src]"
+            scene.querySelector(
+                "img"
             );
 
 
-        if(img){
+
+        if(
+            img &&
+            img.dataset.src
+        ){
 
 
-            img.src =
+            const preload =
+                new Image();
+
+
+            preload.src =
                 img.dataset.src;
-
-
-            img.removeAttribute(
-                "data-src"
-            );
 
 
         }
@@ -377,175 +287,45 @@ card.onclick = ()=>{
     }
 
 
-};
-
-
-
-
-                questContainer.appendChild(
-                    card
-                );
-
-
-            });
-
-
-        }
-
-
-
-
-
-
-
-        // ======================
-        // CREATE SCENES
-        // ======================
-
-
-        if(container){
-
-
-
-            story.forEach((scene,index)=>{
-
-
-
-                const block =
-                    document.createElement(
-                        "section"
-                    );
-
-
-
-                block.className =
-                    "scene";
-
-
-
-                block.id =
-                    `log-${index+1}`;
-
-
-
-
-
-                block.innerHTML = `
-
-
-                    <div class="progress">
-
-
-                        LOG ${String(index+1).padStart(3,"0")}
-
-                        /
-
-                        ${String(total).padStart(3,"0")}
-
-
-                    </div>
-
-
-
-
-                    <p class="caption">
-
-                        ${scene.text}
-
-                    </p>
-
-
-
-
-                    <img
-
-                        data-src="images/${scene.image}"
-
-                        alt=""
-
-                    >
-
-
-
-
-                    <button class="seed-button">
-
-
-                            <span class="seed-icon">🌱</span>
-
-                            Add Your Load +1
-
-
-                    </button>
-
-
-
-                `;
-
-
-
-
-
-                container.appendChild(
-                    block
-                );
-
-
-
-
-
-                const seedButton =
-                    block.querySelector(
-                        ".seed-button"
-                    );
-
-
-
-if(seedButton){
-
-
-    seedButton.onclick = ()=>{
-
-
-        seedButton.innerHTML =
-            '<span class="seed-icon">🌱</span> Overflow Registered ✓';
-
-
-
-        contributeSeed(seedButton);
-
-
-
-        setTimeout(()=>{
-
-
-            seedButton.innerHTML =
-                '<span class="seed-icon">🌱</span> Add Your Load +1';
-
-
-
-        },1500);
-
-
-
-    };
-
-
 }
 
 
 
-            });
+
+
+function jumpToScene(index){
+
+
+    if(
+        !storyScenes[index]
+    ){
+        return;
+    }
 
 
 
-        }
+    loadImage(index);
 
 
 
+    preloadNextImages(
+        index,
+        3
+    );
 
 
 
+    storyScenes[index]
+        .scrollIntoView({
+
+            behavior:"instant",
+
+            block:"start"
+
+        });
+
+
+}
 
         // ======================
         // FADE IN OBSERVER
@@ -607,13 +387,48 @@ if(seedButton){
 
 
 
+
+
+
 // ======================
 // IMAGE LAZY LOAD
 // ======================
 
+
 let allowImageLoading = true;
 
-        
+
+
+function loadSceneImage(scene){
+
+
+    const img =
+        scene.querySelector(
+            "img[data-src]"
+        );
+
+
+    if(img){
+
+
+        img.src =
+            img.dataset.src;
+
+
+        img.removeAttribute(
+            "data-src"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
 const imageObserver =
     new IntersectionObserver(
 
@@ -623,10 +438,10 @@ const imageObserver =
             entries.forEach(entry=>{
 
 
-                    if(
-                        entry.isIntersecting &&
-                        allowImageLoading
-                    ){
+                if(
+                    entry.isIntersecting &&
+                    allowImageLoading
+                ){
 
 
                     const img =
@@ -668,7 +483,7 @@ const imageObserver =
         {
 
             rootMargin:
-                "300px 0px"
+                "600px 0px"
 
         }
 
@@ -693,7 +508,303 @@ document
 
     });
 
-        
+
+
+
+
+
+
+
+
+
+// ======================
+// FLOATING NAVIGATION
+// ======================
+
+
+const scenes =
+    document.querySelectorAll(
+        ".scene"
+    );
+
+
+
+const topButton =
+    document.getElementById(
+        "topButton"
+    );
+
+
+
+const nextButton =
+    document.getElementById(
+        "nextButton"
+    );
+
+
+
+const jumpButton =
+    document.getElementById(
+        "jumpButton"
+    );
+
+
+
+
+
+let jumpAmount = 1;
+
+
+
+const jumpValues =
+    [
+        1,
+        10,
+        50
+    ];
+
+
+
+let jumpIndex = 0;
+
+
+
+
+
+
+
+
+
+// ======================
+// JUMP MULTIPLIER
+// ======================
+
+
+if(jumpButton){
+
+
+    jumpButton.onclick = ()=>{
+
+
+        jumpIndex++;
+
+
+
+        if(
+            jumpIndex >=
+            jumpValues.length
+        ){
+
+            jumpIndex = 0;
+
+        }
+
+
+
+
+        jumpAmount =
+            jumpValues[jumpIndex];
+
+
+
+
+        jumpButton.textContent =
+            jumpAmount + "X";
+
+
+
+    };
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+// ======================
+// GO TOP
+// ======================
+
+
+if(topButton){
+
+
+    topButton.onclick = ()=>{
+
+
+        window.scrollTo({
+
+
+            top:0,
+
+
+            behavior:"smooth"
+
+
+
+        });
+
+
+
+    };
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// ======================
+// NEXT SCENE
+// ======================
+
+
+if(nextButton){
+
+
+    nextButton.onclick = ()=>{
+
+
+
+        let current = 0;
+
+
+
+
+
+        scenes.forEach(
+            (scene,index)=>{
+
+
+                const rect =
+                    scene.getBoundingClientRect();
+
+
+
+
+                if(
+                    rect.top <
+                    window.innerHeight / 2
+                ){
+
+
+                    current = index;
+
+
+                }
+
+
+
+            }
+        );
+
+
+
+
+
+
+
+        const target =
+            Math.min(
+
+                current + jumpAmount,
+
+                scenes.length - 1
+
+            );
+
+
+
+
+
+
+
+        if(jumpAmount > 1){
+
+
+            allowImageLoading = false;
+
+
+        }
+
+
+
+
+
+
+
+        scenes[target]
+            .scrollIntoView({
+
+
+                behavior:
+                    jumpAmount === 1
+                        ? "smooth"
+                        : "instant",
+
+
+                block:"start"
+
+
+
+            });
+
+
+
+
+
+
+
+        // carica solo la destinazione
+
+        loadSceneImage(
+            scenes[target]
+        );
+
+
+
+
+
+
+
+        if(jumpAmount > 1){
+
+
+            setTimeout(()=>{
+
+
+                allowImageLoading = true;
+
+
+            },500);
+
+
+
+        }
+
+
+
+    };
+
+
+
+}
+
         // ======================
         // FLOATING NAVIGATION
         // ======================
@@ -892,11 +1003,6 @@ document
                 let target =
                     current + jumpAmount;
 
-                if(jumpAmount > 1){
-
-                    allowImageLoading = false;
-
-                }
 
 
 
@@ -919,85 +1025,96 @@ document
 
 
 
-
-scenes[target]
-    .scrollIntoView({
-
-
-        behavior:
-            jumpAmount === 1
-                ? "smooth"
-                : "instant",
+                // BLOCCA IL LAZY LOAD
+                // DURANTE SALTI GRANDI
 
 
-        block:"start"
+                if(jumpAmount > 1){
+
+                    allowImageLoading = false;
+
+                }
 
 
 
-    });
+
+
+                scenes[target]
+                    .scrollIntoView({
+
+
+                        behavior:
+                            jumpAmount === 1
+                                ? "smooth"
+                                : "instant",
+
+
+                        block:"start"
 
 
 
-if(jumpAmount > 1){
+                    });
 
 
-    setTimeout(()=>{
 
 
-        allowImageLoading = true;
 
 
-        const img =
-            scenes[target].querySelector(
-                "img[data-src]"
-            );
+                // CARICA SOLO IMMAGINE TARGET
 
 
-        if(img){
+                const targetImg =
+                    scenes[target]
+                        .querySelector(
+                            "img[data-src]"
+                        );
 
 
-            img.src =
-                img.dataset.src;
+
+                if(targetImg){
 
 
-            img.removeAttribute(
-                "data-src"
-            );
+                    targetImg.src =
+                        targetImg.dataset.src;
 
 
-        }
+
+                    targetImg.removeAttribute(
+                        "data-src"
+                    );
 
 
-    },300);
+                }
 
 
-}
 
 
-const img =
-    scenes[target].querySelector(
-        "img[data-src]"
-    );
 
 
-if(img){
+
+                // RIATTIVA LA CODA NORMALE
+                // DOPO IL SALTO
 
 
-    img.src =
-        img.dataset.src;
+                if(jumpAmount > 1){
 
 
-    img.removeAttribute(
-        "data-src"
-    );
+                    setTimeout(()=>{
 
 
-}
+                        allowImageLoading = true;
+
+
+
+                    },500);
+
+
+
+                }
 
 
 
             };
-
 
 
         }
@@ -1082,6 +1199,7 @@ function setupAgeGate(){
 
 
 
+
     if(
         localStorage.getItem(
             "ageAccepted"
@@ -1103,6 +1221,7 @@ function setupAgeGate(){
 
 
     }
+
 
 
 
@@ -1148,7 +1267,6 @@ function setupAgeGate(){
 
 
     }
-
 
 
 
@@ -1245,3 +1363,5 @@ setupAgeGate();
 
 
 loadContent();
+
+
