@@ -300,11 +300,16 @@ async function loadStory() {
 
             const num = String(index + 1).padStart(3, "0");
 
-            scene.innerHTML = `
-                <div class="progress">SCENE ${num} / ${String(story.length).padStart(3, "0")}</div>
-                <p class="caption">${item.text}</p>
-                <img data-src="images/${item.image}" alt="Scene ${num}">
-            `;
+        scene.innerHTML = `
+            <div class="progress">SCENE ${num} / ${String(story.length).padStart(3, "0")}</div>
+            <p class="caption">${item.text}</p>
+            <div class="scene-image-wrapper">
+            <img data-src="images/${item.image}" alt="Scene ${num}">
+            <button class="seed-overlay" onclick="contributeSeed(this)" title="Add Your Load +1">
+                💦
+            </button>
+        </div>
+    `;
 
             container.appendChild(scene);
         });
