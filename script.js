@@ -82,40 +82,8 @@ async function loadSeedTotal(){
 
 
 
-    const goal =
-        1000;
-
-
-
-    const percentage =
-        Math.min(
-            (current / goal) * 100,
-            100
-        );
-
-
-
-    counter.textContent =
-        `🌱 ${current} / ${goal} SEEDs deposited to Lili`;
-
-
-
-    if(progress){
-
-        progress.textContent =
-            `${Math.floor(percentage)}%`;
-
-    }
-
-
-
-    if(bar){
-
-        bar.style.width =
-            percentage + "%";
-
-    }
-
+counter.textContent =
+    `🌱 ${current} SEED loads deposited to Lili`;
 
 }
 
