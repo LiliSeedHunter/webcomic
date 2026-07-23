@@ -13,6 +13,7 @@ let allowImageLoading = true;
 let jumpAmount = 1;
 const jumpValues = [1, 10, 50];
 let jumpIndex = 0;
+let imageObserver = null;
 
 // ======================
 // SEED COUNTER
@@ -114,7 +115,7 @@ function setupFadeObserver() {
 // LAZY IMAGE OBSERVER
 // ======================
 function setupImageObserver() {
-    const imageObserver = new IntersectionObserver(
+    imageObserver = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && allowImageLoading) {
@@ -176,19 +177,42 @@ function setupNavigation() {
             let target = current + jumpAmount;
             if (target >= scenes.length) target = scenes.length - 1;
 
-            if (jumpAmount > 1) allowImageLoading = false;
+            // Blocca il lazy load durante i salti grandi
+            if (jumpAmount > 1) {
+                allowImageLoading = false;
+            }
 
             scenes[target].scrollIntoView({
                 behavior: jumpAmount === 1 ? "smooth" : "instant",
                 block: "start"
             });
 
+            // Carica sempre la destinazione
             loadSceneImage(scenes[target]);
 
+            // Su salti grandi carica anche le 2 successive (aiuta su mobile)
+            if (jumpAmount > 1) {
+                if (scenes[target + 1]) loadSceneImage(scenes[target + 1]);
+                if (scenes[target + 2]) loadSceneImage(scenes[target + 2]);
+            }
+
+            // Riattiva e forza il caricamento di eventuali immagini “bloccate”
             if (jumpAmount > 1) {
                 setTimeout(() => {
                     allowImageLoading = true;
-                }, 500);
+
+                    // Forza il caricamento di tutte le immagini attualmente vicine al viewport
+                    document.querySelectorAll("img[data-src]").forEach((img) => {
+                        const rect = img.getBoundingClientRect();
+                        const margin = 800;
+
+                        if (rect.top < window.innerHeight + margin && rect.bottom > -margin) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute("data-src");
+                            if (imageObserver) imageObserver.unobserve(img);
+                        }
+                    });
+                }, 600);
             }
         };
     }
@@ -300,16 +324,16 @@ async function loadStory() {
 
             const num = String(index + 1).padStart(3, "0");
 
-        scene.innerHTML = `
-            <div class="progress">SCENE ${num} / ${String(story.length).padStart(3, "0")}</div>
-            <p class="caption">${item.text}</p>
-            <div class="scene-image-wrapper">
-            <img data-src="images/${item.image}" alt="Scene ${num}">
-            <button class="seed-overlay" onclick="contributeSeed(this)" title="Add Your Load +1">
-                💦
-            </button>
-        </div>
-    `;
+            scene.innerHTML = `
+                <div class="progress">SCENE ${num} / ${String(story.length).padStart(3, "0")}</div>
+                <p class="caption">${item.text}</p>
+                <div class="scene-image-wrapper">
+                    <img data-src="images/${item.image}" alt="Scene ${num}">
+                    <button class="seed-overlay" onclick="contributeSeed(this)" title="Add Your Load +1">
+                        💦
+                    </button>
+                </div>
+            `;
 
             container.appendChild(scene);
         });
