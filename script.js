@@ -33,7 +33,7 @@ async function loadSeedTotal() {
     }
 
     const current = data.total ?? 0;
-    counter.textContent = `${current} 🌱 GLOBAL SEED RESERVE`;
+    counter.textContent = `${current} 🌊 GLOBAL SEED RESERVE`;
 }
 
 async function contributeSeed(button) {
