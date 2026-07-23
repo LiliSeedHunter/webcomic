@@ -83,7 +83,7 @@ async function loadSeedTotal(){
 
 
 counter.textContent =
-    `🌱 ${current} SEED loads deposited to Lili`;
+    `🌱 ${current} GLOBAL SEED RESERVE`;
 
 }
 
