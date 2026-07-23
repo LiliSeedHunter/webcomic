@@ -2,265 +2,112 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Lily the Seed Hunter</title>
-
     <link rel="stylesheet" href="style.css">
-
 </head>
 
-
 <body>
-
-
 
 <!-- ===================== -->
 <!-- AGE GATE -->
 <!-- ===================== -->
-
-
 <div id="age-gate">
-
-
     <div class="age-box">
-
-
-        <h2>
-            18+ CONTENT WARNING
-        </h2>
-
-
+        <h2>18+ CONTENT WARNING</h2>
         <p>
             This website contains mature fictional artwork,
             adult themes and sexual content.
             You must be 18 years or older to continue.
         </p>
-
-
         <div class="age-buttons">
-
-
-            <button id="enterButton">
-                ENTER
-            </button>
-
-
-            <button id="leaveButton">
-                LEAVE
-            </button>
-
-
+            <button id="enterButton">ENTER</button>
+            <button id="leaveButton">LEAVE</button>
         </div>
-
-
     </div>
-
-
 </div>
-
-
-
 
 
 <!-- ===================== -->
 <!-- GLOBAL SEED COUNTER -->
 <!-- ===================== -->
-
-
 <section id="seed-counter">
-
-
-    <div class="seed-number">
-
-<div class="seed-counter-box">
-
-    <div id="seed-total">
-        🌱 GLOBAL SEED RESERVE
+    <div class="seed-counter-box">
+        <div id="seed-total">🌱 GLOBAL SEED RESERVE</div>
+        <div class="seed-description">
+            Leave your mark. Add your seed to the harvest.
+        </div>
+        <button class="seed-button" onclick="contributeSeed(this)">
+            <span class="seed-icon">🌱</span>
+            PLANT YOUR SEED
+        </button>
     </div>
-
-
-
-
-    <div class="seed-description">
-
-        
-        Leave your mark. Add your seed to the harvest.
-
-    </div>
-
-
 </section>
 
 
-
-
-
-<h1>
-    Lily the Seed Hunter
-</h1>
-
-
-
+<h1>Lily the Seed Hunter</h1>
 
 
 <!-- ===================== -->
 <!-- COVER -->
 <!-- ===================== -->
-
-
 <section class="cover">
-
-
-    <img
-        src="images/cover.webp"
-        alt="Story cover"
-    >
-
-
-
+    <img src="images/cover.webp" alt="Story cover">
     <div class="cover-text">
-
-
-        <h2>
-            The Search for the SEED
-        </h2>
-
-
-
+        <h2>The Search for the SEED</h2>
         <p>
             A strange journey begins when Lily,
             an artificial lifeform created by her Creator,
             is thrown into a mysterious universe of portals,
             secrets and unknown worlds.
         </p>
-
-
-
         <p>
             Follow her mission to discover the truth
             behind the SEED.
         </p>
-
-
-
     </div>
-
-
-
-
-
     <button
         class="start-button"
         onclick="document.getElementById('quests').scrollIntoView({behavior:'smooth'})"
     >
-
         START READING
-
     </button>
-
-
-
 </section>
-
-
-
-
-
 
 
 <!-- ===================== -->
 <!-- QUESTS -->
 <!-- ===================== -->
-
-
 <section id="quests">
-
-
-    <h2 class="quests-title">
-        QUESTS
-    </h2>
-
-
-
+    <h2 class="quests-title">QUESTS</h2>
     <div id="quest-list">
-
-        <!-- Quest generate automaticamente -->
-
+        <!-- generate automaticamente -->
     </div>
-
-
-
 </section>
-
-
-
-
-
 
 
 <!-- ===================== -->
 <!-- STORY -->
 <!-- ===================== -->
-
-
 <main id="story"></main>
-
-
-
-
-
 
 
 <!-- ===================== -->
 <!-- FLOATING NAVIGATION -->
 <!-- ===================== -->
-
-
 <div class="floating-nav">
-
-
-    <button id="jumpButton">
-        1X
-    </button>
-
-
-
-    <button id="topButton">
-        ↑
-    </button>
-
-
-
-    <button id="nextButton">
-        ↓
-    </button>
-
-
-
+    <button id="jumpButton">1X</button>
+    <button id="topButton">↑</button>
+    <button id="nextButton">↓</button>
 </div>
-
-
-
-
-
-
 
 
 <!-- ===================== -->
 <!-- SCRIPTS -->
 <!-- ===================== -->
-
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="script.js"></script>
 
-
-
 </body>
-
 </html>
