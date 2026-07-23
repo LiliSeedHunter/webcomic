@@ -1045,3 +1045,71 @@ h1 {
 
 
 }
+
+/* ======================
+   SEED OVERLAY ON IMAGES
+   ====================== */
+
+.scene-image-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.scene-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 3px;
+}
+
+.seed-overlay {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 20;
+    opacity: 0.8;
+    padding: 0;
+    line-height: 1;
+    animation: seed-wave 2.8s ease-in-out infinite;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+}
+
+.seed-overlay:hover {
+    opacity: 1;
+    transform: scale(1.25);
+}
+
+.seed-overlay:active {
+    transform: scale(0.95);
+}
+
+.seed-overlay:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    animation: none;
+}
+
+/* Piccola ondina */
+@keyframes seed-wave {
+    0%, 100% {
+        transform: rotate(-10deg) translateY(0);
+    }
+    50% {
+        transform: rotate(10deg) translateY(-5px);
+    }
+}
+
+/* Mobile: un po' più piccola */
+@media (max-width: 700px) {
+    .seed-overlay {
+        font-size: 22px;
+        bottom: 10px;
+        left: 10px;
+    }
+}
