@@ -325,7 +325,7 @@ async function loadStory() {
             const num = String(index + 1).padStart(3, "0");
 
             scene.innerHTML = `
-                <div class="progress">SCENE ${num} / ${String(story.length).padStart(3, "0")}</div>
+                <div class="progress">Log #${num} / ${String(story.length).padStart(3, "0")}</div>
                 <p class="caption">${item.text}</p>
                 <div class="scene-image-wrapper">
                     <img data-src="images/${item.image}" alt="Scene ${num}">
